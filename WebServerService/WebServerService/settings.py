@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'bootstrap4',
-    'DeviceService.apps.DeviceserviceConfig'
+    'DeviceService.apps.DeviceServiceConfig'
 ]
 
 MIDDLEWARE = [

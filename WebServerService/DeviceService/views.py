@@ -11,11 +11,9 @@ def index(request):
 def fileupload(request):
     if request.method == 'POST':
         title = request.POST['title']
-        content = request.POST['content']
         imgfile = request.FILES["imgfile"]
         fileupload = FileUpload(
             title=title,
-            content=content,
             imgfile=imgfile,
         )
         fileupload.save()

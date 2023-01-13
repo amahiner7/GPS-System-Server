@@ -7,13 +7,13 @@ from django.db import models
 class DeviceLog(models.Model):
     log = models.TextField()
     type = models.CharField(max_length=255)
-    datetime = models.DateTimeField("log date time")
+    datetime = models.DateTimeField(auto_now_add=True)
 
 
 class FileUpload(models.Model):
     title = models.CharField(max_length=256, null=True)
     imgfile = models.ImageField(upload_to="", blank=True)
-    content = models.TextField(null=True)
+    datetime = models.DateTimeField(auto_now_add=True)
 
 
 # class Product(models.Model):

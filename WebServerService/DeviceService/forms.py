@@ -7,11 +7,10 @@ class FileUploadForm(forms.ModelForm):
     class Meta:
         model = FileUpload
 
-        fields = ['title', 'imgfile', 'content']
+        fields = ['title', 'imgfile']
         labels = {
-            'title': '타이틀',
-            'imgfile': '이미지 파일',
-            'content': '내용'
+            'title': 'Title',
+            'imgfile': 'Image File'
         }
 
 # class ProductForm(forms.ModelForm): # ModelForm 은 장고 모델 폼
