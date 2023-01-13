@@ -1,8 +1,9 @@
+import os
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import FileUploadForm
 from .models import FileInformation
-import os
+import socket
 
 
 def fileupload(request):
@@ -24,5 +25,6 @@ def fileupload(request):
         )
         file_information.save()
 
-        result = {"rCode": "0", "rMessage": "Success", "fileName": image_file.name}
+        image_file_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/imagefile/{image_file.name}"
+        result = {"rCode": "0", "rMessage": "Success", "file_url": image_file_url}
         return JsonResponse(result, safe=False)
