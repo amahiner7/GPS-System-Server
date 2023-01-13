@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/WebServerService" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WebServerService/DeviceService" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WebServerService/WebServerService" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/WebServerService/fileupload" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/WebServerService/media" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,26 +1,26 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import FileUploadForm
-from .models import FileUpload
+from .models import FileInformation
 
 
 def fileupload(request):
     if request.method == "GET":
         fileuploadForm = FileUploadForm
         context = \
-        {
-            'fileuploadForm': fileuploadForm,
-        }
-        return render(request, 'DeviceService/fileupload.html', context)
+            {
+                'fileuploadForm': fileuploadForm,
+            }
+        return render(request, 'fileupload/fileupload.html', context)
 
     elif request.method == 'POST':
         title = request.POST['title']
-        imgfile = request.FILES["imgfile"]
-        fileupload = FileUpload(
+        image_file = request.FILES["image_file"]
+        file_information = FileInformation(
             title=title,
-            imgfile=imgfile,
+            image_file=image_file,
         )
-        fileupload.save()
+        file_information.save()
 
         result = {"rCode": "0", "rMessage": "Success"}
         return JsonResponse(result, safe=False)

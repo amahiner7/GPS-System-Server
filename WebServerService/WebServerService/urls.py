@@ -20,7 +20,6 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('DeviceService/', include('DeviceService.urls')),
     path('fileupload/', include('fileupload.urls')),
 ]
 
