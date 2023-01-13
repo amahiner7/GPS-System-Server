@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import FileUploadForm
 from .models import FileInformation
+import os
 
 
 def fileupload(request):
@@ -14,13 +15,14 @@ def fileupload(request):
         return render(request, 'fileupload/fileupload.html', context)
 
     elif request.method == 'POST':
-        title = request.POST['title']
         image_file = request.FILES["image_file"]
+        title = os.path.basename(image_file.name)
+
         file_information = FileInformation(
             title=title,
             image_file=image_file,
         )
         file_information.save()
 
-        result = {"rCode": "0", "rMessage": "Success"}
+        result = {"rCode": "0", "rMessage": "Success", "fileName": image_file.name}
         return JsonResponse(result, safe=False)

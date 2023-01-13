@@ -6,9 +6,8 @@ class FileUploadForm(forms.ModelForm):
     class Meta:
         model = FileInformation
 
-        fields = ['title', 'image_file']
+        fields = ['image_file']
         labels = \
             {
-                'title': 'Title',
                 'image_file': 'Image File'
             }
