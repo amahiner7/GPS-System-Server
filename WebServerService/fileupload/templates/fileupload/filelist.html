@@ -1,6 +1,7 @@
 {% for item in file_information.all %}
-    <div>
-        <h1>{{item.title}}</h1>
-        <img class="image" src="{{ item.image.url }}" />
+    <div align="center">
+        <h3>{{item.title}}</h3>
+        <img class="image" src="{{ item.image.url }}" style="max-width: 30%; height: auto;"/>
     </div>
+    <br />
 {% endfor %}
