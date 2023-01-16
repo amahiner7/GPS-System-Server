@@ -16,15 +16,26 @@ def fileupload(request):
         return render(request, 'fileupload/fileupload.html', context)
 
     elif request.method == 'POST':
-        image_file = request.FILES["image_file"]
-        title = os.path.basename(image_file.name)
+        image = request.FILES["image"]
+        title = os.path.basename(image.name)
 
         file_information = FileInformation(
             title=title,
-            image_file=image_file,
+            image=image,
         )
         file_information.save()
 
-        image_file_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/imagefile/{image_file.name}"
-        result = {"rCode": "0", "rMessage": "Success", "file_url": image_file_url}
+        image_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{image.name}"
+        result = {"rCode": "0", "rMessage": "Success", "file_url": image_url}
         return JsonResponse(result, safe=False)
+
+
+def filelist(request):
+    file_information = FileInformation.objects.all()
+
+    return render(
+        request, 'fileupload/filelist.html',
+        {
+            'file_information': file_information
+        }
+    )
