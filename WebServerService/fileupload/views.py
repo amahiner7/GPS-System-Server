@@ -18,14 +18,15 @@ def fileupload(request):
     elif request.method == 'POST':
         image = request.FILES["image"]
         title = os.path.basename(image.name)
+        image_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{image.name}"
 
         file_information = FileInformation(
             title=title,
             image=image,
+            image_url=image_url
         )
         file_information.save()
 
-        image_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{image.name}"
         result = {"rCode": "0", "rMessage": "Success", "file_url": image_url}
         return JsonResponse(result, safe=False)
 
