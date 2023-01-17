@@ -1,7 +1,6 @@
 {% for item in file_information.all %}
     <div align="center">
-        <h3>{{item.gc_no}}</h3>
-        <h4>{{item.fname}}</h4>
+        <h4>업장 코드: {{item.gc_no}}</h4> <h4>폴더 이름: {{item.fname}}</h4>
         <h4>{{item.toUpFile_url}}</h4>
         <img src="{{ item.toUpFile.url }}" style="max-width: 30%; height: auto;"/>
     </div>
