@@ -1,12 +1,15 @@
 import os
+import sys
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 import socket
 from .forms import FileUploadForm
 from .models import FileInformation
-from .models import get_upload_file_path
+from .common import *
 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
 @csrf_exempt
 def fileupload(request):
@@ -29,11 +32,14 @@ def fileupload(request):
             toUpFile = request.FILES["toUpFile"]
             title = os.path.basename(toUpFile.name)
 
-            # upload_file_path = get_upload_file_path()
-            # if not os.path.exists(upload_file_path):
-            #     os.makedirs(upload_file_path)
+            sub_upload_file_path = f"{gc_no}/{fname}"
+            set_sub_upload_file_path(sub_upload_file_path)
 
-            toUpFile_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{toUpFile.name}"
+            date_time = timezone.now().strftime("%Y%m%d")
+            sub_upload_web_url = f"{gc_no}/{fname}/{date_time}"
+
+            toUpFile_url = \
+                f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{sub_upload_web_url}/{toUpFile.name}"
 
             file_information = FileInformation(
                 title=title,

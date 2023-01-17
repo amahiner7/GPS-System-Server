@@ -2,11 +2,25 @@ import os
 from django.utils import timezone
 
 
-def get_upload_file_path(instance, filename, gc_no, fname):
+class Configs:
+    sub_upload_file_path = ""
+
+
+def set_sub_upload_file_path(sub_upload_file_path):
+    Configs.sub_upload_file_path = sub_upload_file_path
+
+
+def get_upload_file_path(instance, filename, media_root, sub_upload_file_path=None):
     date_time = timezone.now().strftime("%Y%m%d")
-    result_path = os.path.join(instance.name, gc_no)
-    result_path = os.path.join(result_path, fname)
-    result_path = os.path.join(result_path, date_time)
-    result_path = os.path.join(result_path, filename)
+
+    if sub_upload_file_path is None:
+        sub_upload_file_path = Configs.sub_upload_file_path
+
+    result_path = f"{media_root}/{sub_upload_file_path}/{date_time}"
+
+    if not os.path.exists(result_path):
+        os.makedirs(result_path)
+
+    result_path = f"{result_path}/{filename}"
 
     return result_path
