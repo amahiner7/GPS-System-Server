@@ -1,8 +1,9 @@
 {% for item in file_information.all %}
     <div align="center">
-        <h3>{{item.title}}</h3>
-        <h4>{{item.image_url}}</h4>
-        <img class="image" src="{{ item.image.url }}" style="max-width: 30%; height: auto;"/>
+        <h3>{{item.gc_no}}</h3>
+        <h4>{{item.fname}}</h4>
+        <h4>{{item.toUpFile_url}}</h4>
+        <img src="{{ item.toUpFile.url }}" style="max-width: 30%; height: auto;"/>
     </div>
     <br />
 {% endfor %}
