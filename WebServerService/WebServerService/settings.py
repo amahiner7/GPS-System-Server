@@ -135,3 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = "/image/"
 # MEDIA_ROOT = os.path.join(BASE_DIR, "image")
 MEDIA_ROOT = os.path.join("C:/apache-tomcat-9.0.70/webapps/ROOT", "image")
+
+APPEND_SLASH = False
