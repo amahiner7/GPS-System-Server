@@ -11,6 +11,8 @@ from .common import *
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
+from WebServerService.settings import MEDIA_ROOT
+
 @csrf_exempt
 def fileupload(request):
     if request.method == "GET":
@@ -32,8 +34,8 @@ def fileupload(request):
             toUpFile = request.FILES["toUpFile"]
             title = os.path.basename(toUpFile.name)
 
-            sub_upload_file_path = f"{gc_no}/{fname}"
-            set_sub_upload_file_path(sub_upload_file_path)
+            upload_file_path = f"{MEDIA_ROOT}/{gc_no}/{fname}"
+            set_upload_file_path(upload_file_path=upload_file_path)
 
             date_time = timezone.now().strftime("%Y%m%d")
             sub_upload_web_url = f"{gc_no}/{fname}/{date_time}"
