@@ -20,8 +20,15 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/fileupload', include('fileupload.urls')),
-    path('api/v1/fileupload/', include('fileupload.urls')),
+    path('api/v1/file', include('fileupload.urls')),
+    path('api/v1/file/', include('fileupload.urls')),
+
+    # path('api/v1/file/upload', include('fileupload.urls')),
+    # path('api/v1/file/upload/', include('fileupload.urls')),
+    # path('api/v1/file/filelist', include('fileupload.urls')),
+    # path('api/v1/file/filelist/', include('fileupload.urls')),
+    # path('api/v1/file/download', include('fileupload.urls')),
+    # path('api/v1/file/download/', include('fileupload.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
