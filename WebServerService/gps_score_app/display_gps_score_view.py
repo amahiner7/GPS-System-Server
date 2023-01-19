@@ -7,11 +7,20 @@ from .singleton_object import SingletonObject
 
 @method_decorator(csrf_exempt, name="dispatch")
 class DisplayGPSScoreView(View):
-    def get(self, request):
+    def get(self, request, param):
+        try:
+            if param == "display":
+                co_div = request.GET["co_div"]
+                game_sid = request.GET["game_sid"]
 
-        print("Database status: ", SingletonObject.database_service.is_connected())
-        # file_information = FileInformation.objects.all()
-        context = {'information': "This is test body."}
+                print("co_div: ", co_div)
+                print("game_sid: ", game_sid)
+                par_data_list = SingletonObject.database_service.get_par_data(co_div)
 
-        return render(
-            request, 'gps_score_app/display_gps_score.html', context)
+                context = {'par_data_list': par_data_list}
+
+                return render(
+                    request, 'gps_score_app/display_gps_score.html', context)
+        except Exception as ex:
+            print("DisplayGPSScoreView.get():", ex)
+            return {'rCode': 500, 'rMessage': str(ex)}

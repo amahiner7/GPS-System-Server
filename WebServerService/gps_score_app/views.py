@@ -13,3 +13,7 @@ from Commons.common import *
 
 def index(request):
     return HttpResponse("Hello, World. You're at the gps score index.")
+
+
+def index(request, param):
+    return HttpResponse(f"Hello, World. You're at the gps score index: {param}")
