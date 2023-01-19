@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+# app_name = "gps_score_app"
+
 urlpatterns = [
     path("", views.index, name="index"),
     # path("list", views.filelist, name="filelist"),

@@ -12,4 +12,4 @@ from Commons.common import *
 
 
 def index(request):
-    return HttpResponse("Hello, World. You're at the polls index.")
+    return HttpResponse("Hello, World. You're at the gps score index.")
