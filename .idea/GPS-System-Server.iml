@@ -9,6 +9,8 @@
       <sourceFolder url="file://$MODULE_DIR$/WebServerService/media" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Config" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DataService" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/WebServerService/gps_score" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/WebServerService/gps_score_app" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
