@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'bootstrap4',
-    'fileupload.apps.FileuploadConfig'
+    'fileupload.apps.FileuploadConfig',
+    'gps_score_app.apps.GpsScoreAppConfig'
 ]
 
 MIDDLEWARE = [
@@ -135,5 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = "/image/"
 # MEDIA_ROOT = os.path.join(BASE_DIR, "image")
 MEDIA_ROOT = os.path.join("C:/apache-tomcat-9.0.70/webapps/ROOT", "image")
+
+UPLOAD_FILE_PATH = ""
 
 APPEND_SLASH = False

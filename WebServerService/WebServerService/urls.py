@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/file', include('fileupload.urls')),
     path('api/v1/file/', include('fileupload.urls')),
+    path('api/v1/gps-score', include('gps_score_app.urls')),
+    path('api/v1/gps-score/', include('gps_score_app.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

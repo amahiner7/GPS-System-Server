@@ -1,8 +1,11 @@
 import os
 import sys
 from django.db import models
-from functools import partial
-from .common import get_upload_file_path
+
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+
+from Commons.common import get_upload_file_path
 
 
 class FileInformation(models.Model):
