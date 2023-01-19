@@ -1,14 +1,16 @@
 from django.urls import path
 from . import views
-from .fileupload_view import FileUploadView
+from .file_upload_view import FileUploadView
+from .file_list_view import FileListView
+from .file_download_view import FileDownloadView
 
 # app_name = "fileupload"
 
 urlpatterns = [
-    path("", views.filelist, name="filelist"),
-    path("list", views.filelist, name="filelist"),
-    path("list/", views.filelist, name="filelist"),
+    path("", FileListView.as_view(), name="filelist"),
+    path("list", FileListView.as_view(), name="filelist"),
+    path("list/", FileListView.as_view(), name="filelist"),
     path("upload", FileUploadView.as_view(), name="fileupload"),
     path("upload/", FileUploadView.as_view(), name="fileupload"),
-    path("download/<str:gc_no>", views.filedownload, name="filedownload"),
+    path("download/<str:gc_no>", FileDownloadView.as_view(), name="filedownload"),
 ]

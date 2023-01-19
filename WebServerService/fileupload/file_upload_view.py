@@ -16,7 +16,7 @@ from Commons.common import *
 from WebServerService.settings import MEDIA_ROOT
 
 
-@method_decorator(csrf_exempt, name = "dispatch")
+@method_decorator(csrf_exempt, name="dispatch")
 class FileUploadView(View):
     def get(self, request):
         try:
