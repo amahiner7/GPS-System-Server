@@ -12,6 +12,7 @@ class DatabaseService:
         self.db_password = ""
         self.db_conn = None
         self.db_cursor = None
+        self.connected = False
 
     def __check_db_conn(self):
         if self.db_conn is None or self.db_cursor is None:
@@ -50,12 +51,14 @@ class DatabaseService:
             self.db_cursor = self.db_conn.cursor(pymysql.cursors.DictCursor)
             if print_msg:
                 print(f"Connect to {self.db_ip}, {db_name} success.")
+            self.connected = True
             return True
 
         except Exception as ex:
             if print_msg:
                 print(f"Connect to {db_ip}, {db_name} is failed.")
             print(str(ex))
+            self.connected = False
             return False
 
     def re_connect(self):
@@ -68,3 +71,6 @@ class DatabaseService:
             print_msg=False)
 
         return result
+
+    def is_connected(self):
+        return self.connected
