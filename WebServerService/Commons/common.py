@@ -18,4 +18,3 @@ def get_upload_file_path(instance, filename):
     result_path = f"{result_path}/{filename}"
 
     return result_path
-222
