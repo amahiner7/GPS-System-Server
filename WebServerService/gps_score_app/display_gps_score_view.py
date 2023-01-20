@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views import View
+from django.views.generic import View, TemplateView
 from .singleton_object import SingletonObject
 from django.http import HttpResponse, JsonResponse
 
+
 @method_decorator(csrf_exempt, name="dispatch")
-class DisplayGPSScoreView(View):
+class DisplayGPSScoreView(TemplateView):
+    template_name = "gps_score_app/display.html"
+    qeuryset = None
+
     # @csrf_exempt
     # def __display(self, request):
     #     try:
@@ -55,45 +59,60 @@ class DisplayGPSScoreView(View):
     #         print("DisplayGPSScoreView.__display_gps_score():", ex)
     #         return {'rCode': 500, 'rMessage': str(ex)}
 
-    def get(self, request, param):
-        if param == "display":
-            try:
-                co_div = request.GET["co_div"]
-
-                par_data_list = SingletonObject.database_service.get_par_data(co_div=co_div)
-
-                context = {'par_data_list': par_data_list}
-                return render(
-                    request, 'gps_score_app/display_par_data.html', context)
-            except Exception as ex:
-                print("DisplayGPSScoreView.__display_par_data():", ex)
-                return {'rCode': 500, 'rMessage': str(ex)}
-        if param == "par_data":
-            try:
-                co_div = request.GET["co_div"]
-
-                par_data_list = SingletonObject.database_service.get_par_data(co_div=co_div)
-
-                context = {'par_data_list': par_data_list}
-                return render(
-                    request, 'gps_score_app/display_par_data.html', context)
-            except Exception as ex:
-                print("DisplayGPSScoreView.__display_par_data():", ex)
-                return {'rCode': 500, 'rMessage': str(ex)}
-        elif param == "gps_score":
+    def get(self, request, *args, **kwargs):
+        if kwargs["param"] == "display":
             try:
                 co_div = request.GET["co_div"]
                 game_sid = request.GET["game_sid"]
+                par_data_list = SingletonObject.database_service.get_par_data(co_div=co_div)
 
-                gps_score_data_list = SingletonObject.database_service.get_gps_score_data(
-                    co_div=co_div,
-                    game_sid=game_sid)
+                ctx = {
+                    'view': self.__class__.__name__,
+                    'par_data_list': par_data_list
+                }
 
-                context = {'gps_score_data_list': gps_score_data_list}
+                return self.render_to_response(ctx)
 
-                return render(
-                    request, 'gps_score_app/display_gps_score.html', context)
             except Exception as ex:
-                print("DisplayGPSScoreView.__display_gps_score():", ex)
+                print("DisplayGPSScoreView.__display_par_data():", ex)
                 return {'rCode': 500, 'rMessage': str(ex)}
 
+        #     try:
+        #         co_div = request.GET["co_div"]
+        #
+        #         par_data_list = SingletonObject.database_service.get_par_data(co_div=co_div)
+        #
+        #         context = {'par_data_list': par_data_list}
+        #         return render(
+        #             request, 'gps_score_app/display.html', context)
+        #     except Exception as ex:
+        #         print("DisplayGPSScoreView.__display_par_data():", ex)
+        #         return {'rCode': 500, 'rMessage': str(ex)}
+        # if param == "par_data":
+        #     try:
+        #         co_div = request.GET["co_div"]
+        #
+        #         par_data_list = SingletonObject.database_service.get_par_data(co_div=co_div)
+        #
+        #         context = {'par_data_list': par_data_list}
+        #         return render(
+        #             request, 'gps_score_app/display_par_data.html', context)
+        #     except Exception as ex:
+        #         print("DisplayGPSScoreView.__display_par_data():", ex)
+        #         return {'rCode': 500, 'rMessage': str(ex)}
+        # elif param == "gps_score":
+        #     try:
+        #         co_div = request.GET["co_div"]
+        #         game_sid = request.GET["game_sid"]
+        #
+        #         gps_score_data_list = SingletonObject.database_service.get_gps_score_data(
+        #             co_div=co_div,
+        #             game_sid=game_sid)
+        #
+        #         context = {'gps_score_data_list': gps_score_data_list}
+        #
+        #         return render(
+        #             request, 'gps_score_app/display_gps_score.html', context)
+        #     except Exception as ex:
+        #         print("DisplayGPSScoreView.__display_gps_score():", ex)
+        #         return {'rCode': 500, 'rMessage': str(ex)}
