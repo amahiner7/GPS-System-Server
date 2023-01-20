@@ -4,60 +4,83 @@
 
 {% block css %}                                    <!-- bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style>
+    table, th, td {
+        border: 1px solid #bcbcbc;
+    }
+    table {
+        width: 100px;
+    }
+</style>
 {% endblock css %}
 
 {% block content %}
+
 <table class="table table-hover table-responsive">
     <thead>
         <tr>
-            <th>COUR_NAME</th>
-            <th>COUR_NAME_S</th>
-            <th>HOLE_NO_01</th>
-            <th>HOLE_NO_02</th>
-            <th>HOLE_NO_03</th>
-            <th>HOLE_NO_04</th>
-            <th>HOLE_NO_05</th>
-            <th>HOLE_NO_06</th>
-            <th>HOLE_NO_07</th>
-            <th>HOLE_NO_08</th>
-            <th>HOLE_NO_09</th>
-            <th>PAR_CNT_01</th>
-            <th>PAR_CNT_02</th>
-            <th>PAR_CNT_03</th>
-            <th>PAR_CNT_04</th>
-            <th>PAR_CNT_05</th>
-            <th>PAR_CNT_06</th>
-            <th>PAR_CNT_07</th>
-            <th>PAR_CNT_08</th>
-            <th>PAR_CNT_09</th>
+            <th>코스명</th>
+            <th colspan="10">CO</th>
+            <th colspan="10">CI</th>
+        </tr>
+        <tr>
+            <th>홀(Hole)</th>
+            {% for data in hole_par_A_data_list %}
+                <th>{{data.HOLE_NO_01}}</th>
+                <th>{{data.HOLE_NO_02}}</th>
+                <th>{{data.HOLE_NO_03}}</th>
+                <th>{{data.HOLE_NO_04}}</th>
+                <th>{{data.HOLE_NO_05}}</th>
+                <th>{{data.HOLE_NO_06}}</th>
+                <th>{{data.HOLE_NO_07}}</th>
+                <th>{{data.HOLE_NO_08}}</th>
+                <th>{{data.HOLE_NO_09}}</th>
+            {% endfor %}
+            <th>계</th>
+            {% for data in hole_par_B_data_list %}
+                <th>{{data.HOLE_NO_01}}</th>
+                <th>{{data.HOLE_NO_02}}</th>
+                <th>{{data.HOLE_NO_03}}</th>
+                <th>{{data.HOLE_NO_04}}</th>
+                <th>{{data.HOLE_NO_05}}</th>
+                <th>{{data.HOLE_NO_06}}</th>
+                <th>{{data.HOLE_NO_07}}</th>
+                <th>{{data.HOLE_NO_08}}</th>
+                <th>{{data.HOLE_NO_09}}</th>
+            {% endfor %}
+            <th>계</th>
+            <th>합계</th>
+        <tr>
+            <th>파(Par)</th>
+            {% for data in hole_par_A_data_list %}
+                <th>{{data.PAR_CNT_01}}</th>
+                <th>{{data.PAR_CNT_02}}</th>
+                <th>{{data.PAR_CNT_03}}</th>
+                <th>{{data.PAR_CNT_04}}</th>
+                <th>{{data.PAR_CNT_05}}</th>
+                <th>{{data.PAR_CNT_06}}</th>
+                <th>{{data.PAR_CNT_07}}</th>
+                <th>{{data.PAR_CNT_08}}</th>
+                <th>{{data.PAR_CNT_09}}</th>
+            {% endfor %}
+            <th>{{total_A_Par}}</th>
+            {% for data in hole_par_B_data_list %}
+                <th>{{data.PAR_CNT_01}}</th>
+                <th>{{data.PAR_CNT_02}}</th>
+                <th>{{data.PAR_CNT_03}}</th>
+                <th>{{data.PAR_CNT_04}}</th>
+                <th>{{data.PAR_CNT_05}}</th>
+                <th>{{data.PAR_CNT_06}}</th>
+                <th>{{data.PAR_CNT_07}}</th>
+                <th>{{data.PAR_CNT_08}}</th>
+                <th>{{data.PAR_CNT_09}}</th>
+            {% endfor %}
+            <th>{{total_B_Par}}</th>
+            <th>{{total_Par}}</th>
+        </tr>
         </tr>
     </thead>
     <tbody>
-        {% for par_data in par_data_list %}
-        <tr>
-            <td>{{par_data.COUR_NAME}}</td>
-            <td>{{par_data.COUR_NAME_S}}</td>
-            <td>{{par_data.HOLE_NO_01}}</td>
-            <td>{{par_data.HOLE_NO_02}}</td>
-            <td>{{par_data.HOLE_NO_03}}</td>
-            <td>{{par_data.HOLE_NO_04}}</td>
-            <td>{{par_data.HOLE_NO_05}}</td>
-            <td>{{par_data.HOLE_NO_06}}</td>
-            <td>{{par_data.HOLE_NO_07}}</td>
-            <td>{{par_data.HOLE_NO_08}}</td>
-            <td>{{par_data.HOLE_NO_09}}</td>
-            <td>{{par_data.PAR_CNT_01}}</td>
-            <td>{{par_data.PAR_CNT_02}}</td>
-            <td>{{par_data.PAR_CNT_03}}</td>
-            <td>{{par_data.PAR_CNT_04}}</td>
-            <td>{{par_data.PAR_CNT_05}}</td>
-            <td>{{par_data.PAR_CNT_06}}</td>
-            <td>{{par_data.PAR_CNT_07}}</td>
-            <td>{{par_data.PAR_CNT_08}}</td>
-            <td>{{par_data.PAR_CNT_09}}</td>
-        </tr>
-        {% endfor %}
-        <tr>
     </tbody>
 </table>
 {% endblock content %}
