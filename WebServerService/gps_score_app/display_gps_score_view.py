@@ -57,7 +57,17 @@ class DisplayGPSScoreView(View):
 
     def get(self, request, param):
         if param == "display":
-            pass
+            try:
+                co_div = request.GET["co_div"]
+
+                par_data_list = SingletonObject.database_service.get_par_data(co_div=co_div)
+
+                context = {'par_data_list': par_data_list}
+                return render(
+                    request, 'gps_score_app/display_par_data.html', context)
+            except Exception as ex:
+                print("DisplayGPSScoreView.__display_par_data():", ex)
+                return {'rCode': 500, 'rMessage': str(ex)}
         if param == "par_data":
             try:
                 co_div = request.GET["co_div"]
