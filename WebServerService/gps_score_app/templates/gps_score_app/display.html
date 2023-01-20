@@ -8,9 +8,6 @@
     table, th, td {
         border: 1px solid #bcbcbc;
     }
-    table {
-        width: 100px;
-    }
 </style>
 {% endblock css %}
 
@@ -63,7 +60,7 @@
                 <th>{{data.PAR_CNT_08}}</th>
                 <th>{{data.PAR_CNT_09}}</th>
             {% endfor %}
-            <th>{{total_A_Par}}</th>
+            <th>{{total_Par_A}}</th>
             {% for data in hole_par_B_data_list %}
                 <th>{{data.PAR_CNT_01}}</th>
                 <th>{{data.PAR_CNT_02}}</th>
@@ -75,7 +72,7 @@
                 <th>{{data.PAR_CNT_08}}</th>
                 <th>{{data.PAR_CNT_09}}</th>
             {% endfor %}
-            <th>{{total_B_Par}}</th>
+            <th>{{total_Par_B}}</th>
             <th>{{total_Par}}</th>
         </tr>
             {% for data in gps_score_data_list %}

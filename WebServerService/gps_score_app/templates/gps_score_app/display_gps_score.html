@@ -4,11 +4,16 @@
 
 {% block css %}                                    <!-- bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style>
+    table, th, td {
+        border: 1px solid #bcbcbc;
+    }
+</style>
 {% endblock css %}
 
 {% block content %}
 
-<table class="table table-striped">
+<table class="table table-hover table-responsive">
     <thead>
         <tr>
             <th>COUR_CD_P</th>

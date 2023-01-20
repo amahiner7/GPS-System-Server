@@ -23,22 +23,48 @@ class DisplayGPSScoreView(TemplateView):
                     co_div=co_div,
                     game_sid=game_sid)
 
-                totoal_A_Par = 0
-                totoal_B_Par = 0
+                total_Par_A = 0
+                total_Par_B = 0
 
-                for part_cnt_num in range(1, 9):
-                    par_cnt_str = "PAR_CNT_0" + str(part_cnt_num)
-                    totoal_A_Par = totoal_A_Par + int(hole_par_A_data_list[0][par_cnt_str])
-                    totoal_B_Par = totoal_B_Par + int(hole_par_B_data_list[0][par_cnt_str])
+                for cnt_num in range(1, 9):
+                    cnt_str = "PAR_CNT_0" + str(cnt_num)
+                    par_cnt_A_value = int(hole_par_A_data_list[0][cnt_str])
+                    par_cnt_B_value = int(hole_par_B_data_list[0][cnt_str])
 
-                total_Par = totoal_A_Par + totoal_B_Par
+                    total_Par_A = total_Par_A + par_cnt_A_value
+                    total_Par_B = total_Par_B + par_cnt_B_value
+
+                total_Par = total_Par_A + total_Par_B
+
+                # for cnt_num in range(1, 9):
+                #     cnt_str = "PAR_CNT_0" + str(cnt_num)
+                #
+                #     par_cnt_A_value = int(hole_par_A_data_list[0][cnt_str])
+                #     par_cnt_B_value = int(hole_par_B_data_list[0][cnt_str])
+                #
+                #     total_Par_A = total_Par_A + par_cnt_A_value
+                #     total_Par_B = total_Par_B + par_cnt_B_value
+                #
+                #     score_A_str = "SCORE_A" + str(cnt_num)
+                #     score_B_str = "SCORE_B" + str(cnt_num)
+                #     calc_score_A_str = "CALC_" + score_A_str
+                #     calc_score_B_str = "CALC_" + score_B_str
+                #
+                #     score_A_value = int(gps_score_data_list[0][score_A_str])
+                #     score_B_value = int(gps_score_data_list[0][score_B_str])
+                #
+                #     calc_score_A_value = score_A_value - par_cnt_A_value
+                #     calc_score_B_value = score_B_value - par_cnt_B_value
+                #     gps_score_data_list[0][calc_score_A_str] = calc_score_A_value
+                #     gps_score_data_list[0][calc_score_B_str] = calc_score_B_value
+
 
                 context = {
                     'view': self.__class__.__name__,
                     'hole_par_A_data_list': hole_par_A_data_list,
                     'hole_par_B_data_list': hole_par_B_data_list,
-                    'total_A_Par': str(totoal_A_Par),
-                    'total_B_Par': str(totoal_B_Par),
+                    'total_Par_A': str(total_Par_A),
+                    'total_Par_B': str(total_Par_B),
                     'total_Par': str(total_Par),
                     'gps_score_data_list': gps_score_data_list,
                 }
