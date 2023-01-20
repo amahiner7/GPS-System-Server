@@ -19,6 +19,9 @@ class DisplayGPSScoreView(TemplateView):
                 game_sid = request.GET["game_sid"]
                 hole_par_A_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="CO")
                 hole_par_B_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="CI")
+                gps_score_data_list = SingletonObject.database_service.get_gps_score_data(
+                    co_div=co_div,
+                    game_sid=game_sid)
 
                 totoal_A_Par = 0
                 totoal_B_Par = 0
@@ -37,6 +40,7 @@ class DisplayGPSScoreView(TemplateView):
                     'total_A_Par': str(totoal_A_Par),
                     'total_B_Par': str(totoal_B_Par),
                     'total_Par': str(total_Par),
+                    'gps_score_data_list': gps_score_data_list,
                 }
 
                 return render(

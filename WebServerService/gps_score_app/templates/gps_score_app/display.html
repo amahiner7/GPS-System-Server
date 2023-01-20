@@ -78,6 +78,34 @@
             <th>{{total_B_Par}}</th>
             <th>{{total_Par}}</th>
         </tr>
+            {% for data in gps_score_data_list %}
+            <tr>
+                <td>{{data.CUST_NM}}</td>
+                <td>{{data.SCORE_A1}}</td>
+                <td>{{data.SCORE_A2}}</td>
+                <td>{{data.SCORE_A3}}</td>
+                <td>{{data.SCORE_A4}}</td>
+                <td>{{data.SCORE_A5}}</td>
+                <td>{{data.SCORE_A6}}</td>
+                <td>{{data.SCORE_A7}}</td>
+                <td>{{data.SCORE_A8}}</td>
+                <td>{{data.SCORE_A9}}</td>
+                <td>{{data.SCORE_TOTAL_A}}</td>
+
+                <td>{{data.SCORE_B1}}</td>
+                <td>{{data.SCORE_B2}}</td>
+                <td>{{data.SCORE_B3}}</td>
+                <td>{{data.SCORE_B4}}</td>
+                <td>{{data.SCORE_B5}}</td>
+                <td>{{data.SCORE_B6}}</td>
+                <td>{{data.SCORE_B7}}</td>
+                <td>{{data.SCORE_B8}}</td>
+                <td>{{data.SCORE_B9}}</td>
+                <td>{{data.SCORE_TOTAL_B}}</td>
+
+                <td>{{data.SCORE_TOTAL}}</td>
+            </tr>
+            {% endfor %}
         </tr>
     </thead>
     <tbody>
