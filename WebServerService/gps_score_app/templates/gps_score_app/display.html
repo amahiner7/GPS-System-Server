@@ -7,20 +7,25 @@
 <style>
     table, th, td {
         border: 1px solid #bcbcbc;
+        text-align:center;
+    }
+
+    th {
+        color: white;
     }
 </style>
 {% endblock css %}
 
 {% block content %}
 
-<table class="table table-hover table-responsive">
+<table class="table table-striped">
     <thead>
-        <tr>
+        <tr bgcolor="darkblue">
             <th>코스명</th>
-            <th colspan="10">CO</th>
-            <th colspan="10">CI</th>
+            <th colspan="11">CO</th>
+            <th colspan="11">CI</th>
         </tr>
-        <tr>
+        <tr bgcolor="blue">
             <th>홀(Hole)</th>
             {% for data in hole_par_A_data_list %}
                 <th>{{data.HOLE_NO_01}}</th>
@@ -47,7 +52,7 @@
             {% endfor %}
             <th>계</th>
             <th>합계</th>
-        <tr>
+        <tr bgcolor="darkblue">
             <th>파(Par)</th>
             {% for data in hole_par_A_data_list %}
                 <th>{{data.PAR_CNT_01}}</th>
@@ -77,27 +82,27 @@
         </tr>
             {% for data in gps_score_data_list %}
             <tr>
-                <td>{{data.CUST_NM}}</td>
-                <td>{{data.SCORE_A1}}</td>
-                <td>{{data.SCORE_A2}}</td>
-                <td>{{data.SCORE_A3}}</td>
-                <td>{{data.SCORE_A4}}</td>
-                <td>{{data.SCORE_A5}}</td>
-                <td>{{data.SCORE_A6}}</td>
-                <td>{{data.SCORE_A7}}</td>
-                <td>{{data.SCORE_A8}}</td>
-                <td>{{data.SCORE_A9}}</td>
+                <td><span style="font-weight:bold;font-size:110%">{{data.CUST_NM}}</span></td>
+                <td>{{data.CALC_SCORE_A1}}</td>
+                <td>{{data.CALC_SCORE_A2}}</td>
+                <td>{{data.CALC_SCORE_A3}}</td>
+                <td>{{data.CALC_SCORE_A4}}</td>
+                <td>{{data.CALC_SCORE_A5}}</td>
+                <td>{{data.CALC_SCORE_A6}}</td>
+                <td>{{data.CALC_SCORE_A7}}</td>
+                <td>{{data.CALC_SCORE_A8}}</td>
+                <td>{{data.CALC_SCORE_A9}}</td>
                 <td>{{data.SCORE_TOTAL_A}}</td>
 
-                <td>{{data.SCORE_B1}}</td>
-                <td>{{data.SCORE_B2}}</td>
-                <td>{{data.SCORE_B3}}</td>
-                <td>{{data.SCORE_B4}}</td>
-                <td>{{data.SCORE_B5}}</td>
-                <td>{{data.SCORE_B6}}</td>
-                <td>{{data.SCORE_B7}}</td>
-                <td>{{data.SCORE_B8}}</td>
-                <td>{{data.SCORE_B9}}</td>
+                <td>{{data.CALC_SCORE_B1}}</td>
+                <td>{{data.CALC_SCORE_B2}}</td>
+                <td>{{data.CALC_SCORE_B3}}</td>
+                <td>{{data.CALC_SCORE_B4}}</td>
+                <td>{{data.CALC_SCORE_B5}}</td>
+                <td>{{data.CALC_SCORE_B6}}</td>
+                <td>{{data.CALC_SCORE_B7}}</td>
+                <td>{{data.CALC_SCORE_B8}}</td>
+                <td>{{data.CALC_SCORE_B9}}</td>
                 <td>{{data.SCORE_TOTAL_B}}</td>
 
                 <td>{{data.SCORE_TOTAL}}</td>
