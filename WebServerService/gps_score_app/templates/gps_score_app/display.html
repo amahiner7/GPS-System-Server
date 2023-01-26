@@ -22,13 +22,12 @@
 
 <table class="table table-striped" style="border: 0px">
     <thead>
-        <tr style="border: 0px">
-            <th style="color:black;text-align:left;border: 0px">DATE: 2023-01-16</th>
-            <th style="border: 0px"></th>
-            <th style="border: 0px" rowspan="2"><img src="{% static 'image/map_gen_top_title.png' %}"></th>
+        <tr>
+            <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">DATE: 2023-01-16</th>
+            <th style="border: 0px" rowspan="2"><img src="{% static 'image/map_gen_top_title.png' %}" align="righ"></th>
         </tr>
         <tr style="border: 0px">
-            <th style="color:black;text-align:left;border: 0px">TIME: OUT 07:33</th>
+            <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">TIME: OUT 07:33</th>
         </tr>
     </thead>
 </table>
@@ -36,13 +35,13 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th bgcolor="#808080">코스명</th>
-            <th colspan="10" bgcolor="#0070C0">CO</th>
-            <th colspan="10" bgcolor="#538235">CI</th>
-            <th rowspan="2" bgcolor="#FEBF00" style="vertical-align:middle">합계</th>
+            <th bgcolor="#808080">Course</th>
+            <th colspan="10" bgcolor="#0070C0">OUT</th>
+            <th colspan="10" bgcolor="#538235">IN</th>
+            <th rowspan="2" bgcolor="#FEBF00" style="vertical-align:middle">Total</th>
         </tr>
         <tr>
-            <th bgcolor="#808080">홀(Hole)</th>
+            <th bgcolor="#808080">Hole</th>
             {% for data in hole_par_A_data_list %}
                 <th bgcolor="#0070C0">{{data.HOLE_NO_01}}</th>
                 <th bgcolor="#0070C0">{{data.HOLE_NO_02}}</th>
@@ -68,7 +67,7 @@
             {% endfor %}
             <th bgcolor="#538235">계</th>
         <tr>
-            <th bgcolor="#808080">파(Par)</th>
+            <th bgcolor="#808080">PAR</th>
             {% for data in hole_par_A_data_list %}
                 <th bgcolor="#0070C0">{{data.PAR_CNT_01}}</th>
                 <th bgcolor="#0070C0">{{data.PAR_CNT_02}}</th>
