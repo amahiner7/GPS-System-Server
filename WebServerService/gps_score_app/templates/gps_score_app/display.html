@@ -20,65 +20,65 @@
 
 <table class="table table-striped">
     <thead>
-        <tr bgcolor="darkblue">
-            <th>코스명</th>
-            <th colspan="11">CO</th>
-            <th colspan="11">CI</th>
+        <tr>
+            <th bgcolor="#808080">코스명</th>
+            <th colspan="10" bgcolor="#0070C0">CO</th>
+            <th colspan="12" bgcolor="#538235">CI</th>
         </tr>
-        <tr bgcolor="blue">
-            <th>홀(Hole)</th>
+        <tr>
+            <th bgcolor="#808080">홀(Hole)</th>
             {% for data in hole_par_A_data_list %}
-                <th>{{data.HOLE_NO_01}}</th>
-                <th>{{data.HOLE_NO_02}}</th>
-                <th>{{data.HOLE_NO_03}}</th>
-                <th>{{data.HOLE_NO_04}}</th>
-                <th>{{data.HOLE_NO_05}}</th>
-                <th>{{data.HOLE_NO_06}}</th>
-                <th>{{data.HOLE_NO_07}}</th>
-                <th>{{data.HOLE_NO_08}}</th>
-                <th>{{data.HOLE_NO_09}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_01}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_02}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_03}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_04}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_05}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_06}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_07}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_08}}</th>
+                <th bgcolor="#0070C0">{{data.HOLE_NO_09}}</th>
             {% endfor %}
-            <th>계</th>
+            <th bgcolor="#0070C0">계</th>
             {% for data in hole_par_B_data_list %}
-                <th>{{data.HOLE_NO_01}}</th>
-                <th>{{data.HOLE_NO_02}}</th>
-                <th>{{data.HOLE_NO_03}}</th>
-                <th>{{data.HOLE_NO_04}}</th>
-                <th>{{data.HOLE_NO_05}}</th>
-                <th>{{data.HOLE_NO_06}}</th>
-                <th>{{data.HOLE_NO_07}}</th>
-                <th>{{data.HOLE_NO_08}}</th>
-                <th>{{data.HOLE_NO_09}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_01}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_02}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_03}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_04}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_05}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_06}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_07}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_08}}</th>
+                <th bgcolor="#538235">{{data.HOLE_NO_09}}</th>
             {% endfor %}
-            <th>계</th>
-            <th>합계</th>
-        <tr bgcolor="darkblue">
-            <th>파(Par)</th>
+            <th bgcolor="#538235">계</th>
+            <th bgcolor="#FEBF00">합계</th>
+        <tr>
+            <th bgcolor="#808080">파(Par)</th>
             {% for data in hole_par_A_data_list %}
-                <th>{{data.PAR_CNT_01}}</th>
-                <th>{{data.PAR_CNT_02}}</th>
-                <th>{{data.PAR_CNT_03}}</th>
-                <th>{{data.PAR_CNT_04}}</th>
-                <th>{{data.PAR_CNT_05}}</th>
-                <th>{{data.PAR_CNT_06}}</th>
-                <th>{{data.PAR_CNT_07}}</th>
-                <th>{{data.PAR_CNT_08}}</th>
-                <th>{{data.PAR_CNT_09}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_01}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_02}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_03}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_04}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_05}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_06}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_07}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_08}}</th>
+                <th bgcolor="#0070C0">{{data.PAR_CNT_09}}</th>
             {% endfor %}
-            <th>{{total_Par_A}}</th>
+            <th bgcolor="#0070C0">{{total_Par_A}}</th>
             {% for data in hole_par_B_data_list %}
-                <th>{{data.PAR_CNT_01}}</th>
-                <th>{{data.PAR_CNT_02}}</th>
-                <th>{{data.PAR_CNT_03}}</th>
-                <th>{{data.PAR_CNT_04}}</th>
-                <th>{{data.PAR_CNT_05}}</th>
-                <th>{{data.PAR_CNT_06}}</th>
-                <th>{{data.PAR_CNT_07}}</th>
-                <th>{{data.PAR_CNT_08}}</th>
-                <th>{{data.PAR_CNT_09}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_01}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_02}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_03}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_04}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_05}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_06}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_07}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_08}}</th>
+                <th bgcolor="#538235">{{data.PAR_CNT_09}}</th>
             {% endfor %}
-            <th>{{total_Par_B}}</th>
-            <th>{{total_Par}}</th>
+            <th bgcolor="#538235">{{total_Par_B}}</th>
+            <th bgcolor="#FEBF00">{{total_Par}}</th>
         </tr>
             {% for data in gps_score_data_list %}
             <tr>
