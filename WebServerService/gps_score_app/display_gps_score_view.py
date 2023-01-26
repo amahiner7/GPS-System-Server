@@ -84,7 +84,7 @@ class DisplayGPSScoreView(TemplateView):
                 print(ex)
                 return {'rCode': 500, 'rMessage': str(ex)}
 
-        elif kwargs["param"] == "test":
+        elif kwargs["param"] == "screenshot":
             try:
                 co_div = request.GET["co_div"]
                 game_sid = request.GET["game_sid"]
@@ -113,10 +113,14 @@ class DisplayGPSScoreView(TemplateView):
 
                 image = imgkit.from_string(html, False, config=config)
 
-                # Generate download
-                response = HttpResponse(image, content_type='image/jpeg')
+                # # Generate download
+                # response = HttpResponse(image, content_type='image/jpeg')
+                #
+                # response['Content-Disposition'] = 'attachment; filename=gps-score-image.jpg'
 
-                response['Content-Disposition'] = 'attachment; filename=gps-score-image.jpg'
+                file_path = "gps-score-image.jpg"
+                response = HttpResponse(image, content_type="image/jpeg")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
 
                 return response
 
