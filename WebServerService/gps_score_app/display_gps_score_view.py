@@ -1,9 +1,15 @@
+import os
+import sys
+
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View, TemplateView
-from .singleton_object import SingletonObject
 from django.http import HttpResponse, JsonResponse
+from django.template.loader import get_template
+from django.conf import settings
+from .singleton_object import SingletonObject
+import imgkit
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -73,6 +79,46 @@ class DisplayGPSScoreView(TemplateView):
 
                 return render(
                     request, 'gps_score_app/display.html', context)
+
+            except Exception as ex:
+                print(ex)
+                return {'rCode': 500, 'rMessage': str(ex)}
+
+        elif kwargs["param"] == "test":
+            try:
+                co_div = request.GET["co_div"]
+                game_sid = request.GET["game_sid"]
+
+                hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
+                    self.get_gps_score_data(co_div=co_div, game_sid=game_sid)
+
+                context = {
+                    'view': self.__class__.__name__,
+                    'hole_par_A_data_list': hole_par_A_data_list,
+                    'hole_par_B_data_list': hole_par_B_data_list,
+                    'gps_score_data_list': gps_score_data_list,
+                    'total_Par_A': str(total_Par_A),
+                    'total_Par_B': str(total_Par_B),
+                    'total_Par': str(total_Par)
+                }
+
+                template_path = "gps_score_app/display.html"
+                template = get_template(template_path)
+                html = template.render(context)
+
+                wkhtml_to_image = os.path.join(
+                    settings.BASE_DIR, "gps_score_app/wkhtmltoimage.exe")
+
+                config = imgkit.config(wkhtmltoimage=wkhtml_to_image, xvfb='/opt/bin/xvfb-run')
+
+                image = imgkit.from_string(html, False, config=config)
+
+                # Generate download
+                response = HttpResponse(image, content_type='image/jpeg')
+
+                response['Content-Disposition'] = 'attachment; filename=gps-score-image.jpg'
+
+                return response
 
             except Exception as ex:
                 print(ex)
