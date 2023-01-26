@@ -14,23 +14,25 @@ from WebServerService.settings import MEDIA_ROOT
 
 @method_decorator(csrf_exempt, name="dispatch")
 class FileDownloadView(View):
-    def get(self, request, gc_no):
-        try:
-            fname = request.GET['fname']
-            datetime = request.GET['datetime']
-            filename = request.GET['filename']
+    def get(self, request, *args, **kwargs):
+        if kwargs["param"] == "download":
+            try:
+                gc_no = request.GET['gc_no']
+                fname = request.GET['fname']
+                datetime = request.GET['datetime']
+                filename = request.GET['filename']
 
-            file_path = f"{MEDIA_ROOT}/{gc_no}/{fname}/{datetime}/{filename}"
+                file_path = f"{MEDIA_ROOT}/{gc_no}/{fname}/{datetime}/{filename}"
 
-            if os.path.exists(file_path):
-                with open(file_path, 'rb') as fh:
-                    response = HttpResponse(fh.read(), content_type="image/png")
-                    response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                    return response
-            else:
-                result = {'rCode': 400, 'rMessage': "Bad request"}
+                if os.path.exists(file_path):
+                    with open(file_path, 'rb') as fh:
+                        response = HttpResponse(fh.read(), content_type="image/jpeg")
+                        response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                        return response
+                else:
+                    result = {'rCode': 400, 'rMessage': "Bad request"}
+                    return JsonResponse(result, safe=False)
+
+            except Exception as ex:
+                result = {'rCode': 500, 'rMessage': str(ex)}
                 return JsonResponse(result, safe=False)
-
-        except Exception as ex:
-            result = {'rCode': 500, 'rMessage': str(ex)}
-            return JsonResponse(result, safe=False)

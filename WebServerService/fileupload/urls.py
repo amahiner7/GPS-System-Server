@@ -11,5 +11,5 @@ urlpatterns = [
     path("list/", FileListView.as_view(), name="filelist"),
     path("upload", FileUploadView.as_view(), name="fileupload"),
     path("upload/", FileUploadView.as_view(), name="fileupload"),
-    path("download/<str:gc_no>", FileDownloadView.as_view(), name="filedownload"),
+    path("/<str:param>", FileDownloadView.as_view(), name="filedownload"),
 ]
