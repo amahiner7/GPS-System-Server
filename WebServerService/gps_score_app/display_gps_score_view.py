@@ -68,15 +68,12 @@ class DisplayGPSScoreView(TemplateView):
     def get(self, request, *args, **kwargs):
         if kwargs["param"] == "display":
             try:
-                co_div = None
                 if request.GET.get("co_div"):
                     co_div = request.GET["co_div"]
 
-                game_sid = None
                 if request.GET.get("game_sid"):
                     game_sid = request.GET["game_sid"]
 
-                date_time = None
                 if request.GET.get("date_time"):
                     date_time = request.GET["date_time"]
                 else:
@@ -107,22 +104,25 @@ class DisplayGPSScoreView(TemplateView):
                 result = {'rCode': 500, 'rMessage': str(ex)}
                 return JsonResponse(result, safe=False)
 
-        elif kwargs["param"] == "screenshot":
+        elif kwargs["param"] == "screen-shot":
             try:
-                co_div = None
                 if request.GET.get("co_div"):
                     co_div = request.GET["co_div"]
 
-                game_sid = None
                 if request.GET.get("game_sid"):
                     game_sid = request.GET["game_sid"]
 
-                date_time = None
                 if request.GET.get("date_time"):
                     date_time = request.GET["date_time"]
+                else:
+                    date_time = dt.datetime.now().strftime("%Y%m%d")
 
                 hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
-                    self.get_gps_score_data(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                    self.get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
+
+                if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
+                    result = {'rCode': 500, 'rMessage': "Empty data."}
+                    return JsonResponse(result, safe=False)
 
                 context = {
                     'view': self.__class__.__name__,
