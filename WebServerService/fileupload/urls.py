@@ -7,7 +7,6 @@ from .file_download_view import FileDownloadView
 # app_name = "fileupload"
 
 urlpatterns = [
-    path("", FileListView.as_view(), name="filelist"),
     path("list", FileListView.as_view(), name="filelist"),
     path("list/", FileListView.as_view(), name="filelist"),
     path("upload", FileUploadView.as_view(), name="fileupload"),
