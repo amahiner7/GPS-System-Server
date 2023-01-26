@@ -88,7 +88,7 @@ class DatabaseService:
             self.db_cursor.execute(sql)
         except Exception as ex:
             print("DatabaseService.get_par_data():", ex)
-            return {'resultCode': 500, 'resultMsg': 'query execution fail.'}
+            return {'rCode': 500, 'rMessage': 'query execution fail.'}
 
         results = [dict((self.db_cursor.description[i][0], value) for i, value in enumerate(row.values()))
                    for row in self.db_cursor.fetchall()]
@@ -113,7 +113,7 @@ class DatabaseService:
             self.db_cursor.execute(sql)
         except Exception as ex:
             print("DatabaseService.get_par_data():", ex)
-            return {'resultCode': 500, 'resultMsg': 'query execution fail.'}
+            return {'rCode': 500, 'rMessage': 'query execution fail.'}
 
         results = [dict((self.db_cursor.description[i][0], value) for i, value in enumerate(row.values()))
                    for row in self.db_cursor.fetchall()]
@@ -123,7 +123,12 @@ class DatabaseService:
         else:
             return None
 
-    def get_gps_score_data(self, co_div, game_sid):
+    def get_gps_score_data(self, co_div, game_sid, date_time=None):
+        date_time_query = ""
+
+        if date_time is not None:
+            date_time_query = f"AND P.GAME_DT = '{date_time}' "
+
         sql = "SELECT G.COUR_CD_P, G.GAME_SID, G.CHANGE_CD_P, G.CHANGE_CD_N, G.CHANGE_CD_A, P.CHKIN_NO, P.CUST_NM, " \
               "CASE WHEN S.COURSE_A IS NULL THEN G.CHANGE_CD_P ELSE S.COURSE_A END COURSE_A, " \
               "CASE WHEN S.SCORE_A1 IS NULL THEN 0 ELSE S.SCORE_A1 END SCORE_A1, " \
@@ -148,7 +153,7 @@ class DatabaseService:
               "CASE WHEN S.SCORE_TOTAL_A IS NULL THEN 0 ELSE S.SCORE_TOTAL_A END SCORE_TOTAL_A, " \
               "CASE WHEN S.SCORE_TOTAL_B IS NULL THEN 0 ELSE S.SCORE_TOTAL_B END SCORE_TOTAL_B, " \
               "CASE WHEN S.SCORE_TOTAL   IS NULL THEN 0 ELSE S.SCORE_TOTAL   END SCORE_TOTAL, " \
-              "G.SCORE_PIC_URL1, S.SMS_SEND , H.EN_PHONE " \
+              "G.SCORE_PIC_URL1, S.SMS_SEND, H.EN_PHONE, H.EN_TIME " \
               "FROM  GC0110 P INNER JOIN GD0100 G ON G.CO_DIV = P.CO_DIV " \
               "AND G.GAME_DT = P.GAME_DT " \
               "AND G.GAME_SID = P.GAME_SID " \
@@ -160,6 +165,7 @@ class DatabaseService:
               "AND G.GAME_DT = H.EN_DAY " \
               "AND G.COUR_CD_P = H.EN_COS AND G.GAME_TI = H.EN_TIME and P.CHKIN_NO = H.en_chkinno " \
               f"WHERE P.CO_DIV = '{co_div}' " \
+              f"{date_time_query}" \
               "AND P.CHECKINYN = 'Y' " \
               f"AND p.game_sid ='{game_sid}' " \
               "AND G.DEL_YN = 'N' " \
@@ -168,7 +174,7 @@ class DatabaseService:
             self.db_cursor.execute(sql)
         except Exception as ex:
             print("DatabaseService.get_par_data():", ex)
-            return {'resultCode': 500, 'resultMsg': 'query execution fail.'}
+            return {'rCode': 500, 'rMessage': 'query execution fail.'}
 
         results = [dict((self.db_cursor.description[i][0], value) for i, value in enumerate(row.values()))
                    for row in self.db_cursor.fetchall()]

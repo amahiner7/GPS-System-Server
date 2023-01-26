@@ -1,5 +1,6 @@
 import os
-import sys
+import imgkit
+import datetime as dt
 
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -9,7 +10,6 @@ from django.http import HttpResponse, JsonResponse
 from django.template.loader import get_template
 from django.conf import settings
 from .singleton_object import SingletonObject
-import imgkit
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -17,12 +17,19 @@ class DisplayGPSScoreView(TemplateView):
     template_name = "gps_score_app/display.html"
     qeuryset = None
 
-    def get_gps_score_data(self, co_div, game_sid):
+    def get_gps_score_information(self, co_div, game_sid, date_time):
         hole_par_A_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="OUT")
         hole_par_B_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="IN")
         gps_score_data_list = SingletonObject.database_service.get_gps_score_data(
             co_div=co_div,
-            game_sid=game_sid)
+            game_sid=game_sid,
+            date_time=date_time)
+
+        if hole_par_A_data_list is None or len(hole_par_A_data_list) == 0 or \
+                hole_par_B_data_list is None or len(hole_par_B_data_list) == 0 or \
+                gps_score_data_list is None or len(gps_score_data_list) == 0:
+
+            return None, None, None, None, None, None
 
         total_Par_A = 0
         total_Par_B = 0
@@ -61,11 +68,26 @@ class DisplayGPSScoreView(TemplateView):
     def get(self, request, *args, **kwargs):
         if kwargs["param"] == "display":
             try:
-                co_div = request.GET["co_div"]
-                game_sid = request.GET["game_sid"]
+                co_div = None
+                if request.GET.get("co_div"):
+                    co_div = request.GET["co_div"]
+
+                game_sid = None
+                if request.GET.get("game_sid"):
+                    game_sid = request.GET["game_sid"]
+
+                date_time = None
+                if request.GET.get("date_time"):
+                    date_time = request.GET["date_time"]
+                else:
+                    date_time = dt.datetime.now().strftime("%Y%m%d")
 
                 hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
-                    self.get_gps_score_data(co_div=co_div, game_sid=game_sid)
+                    self.get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
+
+                if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
+                    result = {'rCode': 500, 'rMessage': "Empty data."}
+                    return JsonResponse(result, safe=False)
 
                 context = {
                     'view': self.__class__.__name__,
@@ -82,15 +104,25 @@ class DisplayGPSScoreView(TemplateView):
 
             except Exception as ex:
                 print(ex)
-                return {'rCode': 500, 'rMessage': str(ex)}
+                result = {'rCode': 500, 'rMessage': str(ex)}
+                return JsonResponse(result, safe=False)
 
         elif kwargs["param"] == "screenshot":
             try:
-                co_div = request.GET["co_div"]
-                game_sid = request.GET["game_sid"]
+                co_div = None
+                if request.GET.get("co_div"):
+                    co_div = request.GET["co_div"]
+
+                game_sid = None
+                if request.GET.get("game_sid"):
+                    game_sid = request.GET["game_sid"]
+
+                date_time = None
+                if request.GET.get("date_time"):
+                    date_time = request.GET["date_time"]
 
                 hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
-                    self.get_gps_score_data(co_div=co_div, game_sid=game_sid)
+                    self.get_gps_score_data(co_div=co_div, game_sid=game_sid, date_time=date_time)
 
                 context = {
                     'view': self.__class__.__name__,
@@ -126,7 +158,8 @@ class DisplayGPSScoreView(TemplateView):
 
             except Exception as ex:
                 print(ex)
-                return {'rCode': 500, 'rMessage': str(ex)}
+                result = {'rCode': 500, 'rMessage': str(ex)}
+                return JsonResponse(result, safe=False)
 
         elif kwargs["param"] == "pardata":
             try:
@@ -143,7 +176,8 @@ class DisplayGPSScoreView(TemplateView):
 
             except Exception as ex:
                 print(ex)
-                return {'rCode': 500, 'rMessage': str(ex)}
+                result = {'rCode': 500, 'rMessage': str(ex)}
+                return JsonResponse(result, safe=False)
 
         elif kwargs["param"] == "scoredata":
             try:
@@ -163,4 +197,5 @@ class DisplayGPSScoreView(TemplateView):
 
             except Exception as ex:
                 print(ex)
-                return {'rCode': 500, 'rMessage': str(ex)}
+                result = {'rCode': 500, 'rMessage': str(ex)}
+                return JsonResponse(result, safe=False)
