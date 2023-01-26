@@ -23,7 +23,8 @@
         <tr>
             <th bgcolor="#808080">코스명</th>
             <th colspan="10" bgcolor="#0070C0">CO</th>
-            <th colspan="12" bgcolor="#538235">CI</th>
+            <th colspan="10" bgcolor="#538235">CI</th>
+            <th rowspan="2" bgcolor="#FEBF00" style="vertical-align:middle">합계</th>
         </tr>
         <tr>
             <th bgcolor="#808080">홀(Hole)</th>
@@ -51,7 +52,6 @@
                 <th bgcolor="#538235">{{data.HOLE_NO_09}}</th>
             {% endfor %}
             <th bgcolor="#538235">계</th>
-            <th bgcolor="#FEBF00">합계</th>
         <tr>
             <th bgcolor="#808080">파(Par)</th>
             {% for data in hole_par_A_data_list %}
