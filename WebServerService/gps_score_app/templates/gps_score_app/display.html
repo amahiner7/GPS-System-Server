@@ -98,6 +98,8 @@
             {% endfor %}
             <th bgcolor="#538235">{{total_Par_B}}</th>
             <th bgcolor="#FEBF00">{{total_Par}}</th>
+    </thead>
+    <tbody>
         </tr>
             {% for data in gps_score_data_list %}
             <tr>
@@ -128,8 +130,6 @@
             </tr>
             {% endfor %}
         </tr>
-    </thead>
-    <tbody>
     </tbody>
 </table>
 {% endblock content %}
