@@ -24,7 +24,12 @@
     <thead>
         <tr>
             <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">DATE: 2023-01-16</th>
-            <th style="border: 0px" rowspan="2"><img src="{% static 'image/map_gen_top_title.png' %}" align="righ"></th>
+            <!--<th style="border: 0px" rowspan="2">
+                <img src="{% static 'image/map_gen_top_title.png' %}" align="right">
+            </th>-->
+            <th style="border: 0px" rowspan="2">
+                <img src="http://127.0.0.1:9018/api/v1/file/download/static_image?file_name=map_gen_top_title.png" align="right">
+            </th>
         </tr>
         <tr style="border: 0px">
             <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">TIME: OUT 07:33</th>
@@ -53,7 +58,7 @@
                 <th bgcolor="#0070C0">{{data.HOLE_NO_08}}</th>
                 <th bgcolor="#0070C0">{{data.HOLE_NO_09}}</th>
             {% endfor %}
-            <th bgcolor="#0070C0">계</th>
+            <th bgcolor="#0070C0">SUB</th>
             {% for data in hole_par_B_data_list %}
                 <th bgcolor="#538235">{{data.HOLE_NO_01}}</th>
                 <th bgcolor="#538235">{{data.HOLE_NO_02}}</th>
