@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'bootstrap4',
-    'fileupload.apps.FileuploadConfig',
+    'file_management_app.apps.FileManagementAppConfig',
     'gps_score_app.apps.GpsScoreAppConfig'
 ]
 

@@ -20,8 +20,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/file', include('fileupload.urls')),
-    path('api/v1/file/', include('fileupload.urls')),
+    path('api/v1/file', include('file_management_app.urls')),
+    path('api/v1/file/', include('file_management_app.urls')),
     path('api/v1/gps-score', include('gps_score_app.urls')),
     path('api/v1/gps-score/', include('gps_score_app.urls')),
 ]

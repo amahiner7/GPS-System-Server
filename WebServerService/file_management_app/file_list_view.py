@@ -12,4 +12,4 @@ class FileListView(View):
         context = {'file_information': file_information}
 
         return render(
-            request, 'fileupload/filelist.html', context)
+            request, 'file_management_app/filelist.html', context)

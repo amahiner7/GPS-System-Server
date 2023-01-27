@@ -25,7 +25,7 @@ class FileUploadView(View):
                 {
                     'fileuploadForm': fileuploadForm,
                 }
-            return render(request, 'fileupload/fileupload.html', context)
+            return render(request, 'file_management_app/fileupload.html', context)
         except Exception as ex:
             result = {'rCode': 500, 'rMessage': str(ex)}
             return JsonResponse(result, safe=False)
