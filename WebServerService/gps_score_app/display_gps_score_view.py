@@ -102,8 +102,26 @@ class DisplayGPSScoreView(TemplateView):
             print(ex)
             return None
 
-    def __get_json_string(self, file_url):
-        result = {"rCode": "200", "rMessage": "Success", "file_url": file_url}
+    def __get_json_string(self, plcbizCd, scoreUrl, sendLogSno, rvtnDt, name,
+                          bgnCourseId, rvtnHoleCo, mobileNo, gmberNo, rvtnSno):
+        send_list = []
+        send_list_item = \
+            {
+                "scoreUrl": scoreUrl,
+                "sendLogSno": sendLogSno,
+                "rvtnDt": rvtnDt,
+                "name": name,
+                "bgnCourseId": bgnCourseId,
+                "rvtnHoleCo": rvtnHoleCo,
+                "mobileNo": mobileNo,
+                "gmberNo": gmberNo,
+                "rvtnSno": rvtnSno,
+            }
+
+        send_list.append(send_list_item)
+
+        result = {"sendList": send_list, "plcbizCd": plcbizCd}
+
         return result
 
     def get(self, request, *args, **kwargs):
@@ -146,6 +164,9 @@ class DisplayGPSScoreView(TemplateView):
                 else:
                     date_time = dt.datetime.now().strftime("%Y%m%d")
 
+                if request.GET.get("mobile_no"):
+                    mobile_no = request.GET["mobile_no"]
+
                 context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
                 if context is None:
                     result = {'rCode': 500, 'rMessage': "Empty data."}
@@ -169,14 +190,28 @@ class DisplayGPSScoreView(TemplateView):
                 if not os.path.exists(save_dir_path):
                     os.makedirs(save_dir_path)
 
+                # file_url = \
+                #     f"http://{socket.gethostbyname(socket.gethostname())}:9018/api/v1/file/gps-score-image?" \
+                #     f"co_div={co_div}&game_sid={game_sid}&datetime={date_time}&filename={file_path}"
+
                 file_url = \
-                    f"http://{socket.gethostbyname(socket.gethostname())}:9018/api/v1/file/gps-score-image?" \
-                    f"co_div={co_div}&game_sid={game_sid}&datetime={date_time}&filename={file_path}"
+                    f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/" \
+                    f"{co_div}/{game_sid}/{date_time}/{file_path}"
 
                 with open(file_full_path, "wb") as file:
                     file.write(image)
 
-                json_string = self.__get_json_string(file_url=file_url)
+                json_string = self.__get_json_string(
+                    plcbizCd=co_div,
+                    scoreUrl=file_url,
+                    sendLogSno="0001",
+                    rvtnDt=date_time,
+                    name="테스터",
+                    bgnCourseId="0001",
+                    rvtnHoleCo="0001",
+                    mobileNo=mobile_no,
+                    gmberNo=game_sid,
+                    rvtnSno="0001")
 
                 return JsonResponse(json_string, safe=False)
 
