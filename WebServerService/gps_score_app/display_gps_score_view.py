@@ -170,8 +170,6 @@ class DisplayGPSScoreView(TemplateView):
                     os.makedirs(save_dir_path)
 
                 sub_file_save_web_url = f"{co_div}/{game_sid}/{date_time}"
-                file_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{sub_file_save_web_url}/{file_path}"
-
                 file_url = \
                     f"http://{socket.gethostbyname(socket.gethostname())}:9018/api/v1/file/gps-score-image?" \
                     f"co_div={co_div}&game_sid={game_sid}&datetime={date_time}&filename={file_path}"
@@ -182,16 +180,6 @@ class DisplayGPSScoreView(TemplateView):
                 json_string = self.__get_json_string(file_url=file_url)
 
                 return JsonResponse(json_string, safe=False)
-
-                # # Generate download
-                # response = HttpResponse(image, content_type='image/jpeg')
-                #
-                # response['Content-Disposition'] = 'attachment; filename=gps-score-image.jpg'
-
-                # response = HttpResponse(image, content_type="image/jpeg")
-                # response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-
-                # return response
 
             except Exception as ex:
                 print(ex)
