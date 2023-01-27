@@ -59,8 +59,8 @@ class FileDownloadView(View):
         try:
             co_div = request.GET["co_div"]
             game_sid = request.GET["game_sid"]
-            date_time = request.GET["date_time"]
-            file_name = request.GET["file_name"]
+            date_time = request.GET["datetime"]
+            file_name = request.GET["filename"]
 
             file_path = f"{MEDIA_ROOT}/{co_div}/{game_sid}/{date_time}/{file_name}"
 

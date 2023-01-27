@@ -41,10 +41,9 @@ class FileUploadView(View):
             set_upload_file_path(upload_file_path=upload_file_path)
 
             date_time = timezone.now().strftime("%Y%m%d")
-            sub_upload_web_url = f"{gc_no}/{fname}/{date_time}"
-
             toUpFile_url = \
-                f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{sub_upload_web_url}/{toUpFile.name}"
+                f"http://{socket.gethostbyname(socket.gethostname())}:9018/api/v1/file/download?" \
+                f"gc_no={gc_no}&fname={fname}&datetime={date_time}&filename={toUpFile.name}"
 
             file_information = FileInformation(
                 title=title,
