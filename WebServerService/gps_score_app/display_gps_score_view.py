@@ -73,8 +73,10 @@ class DisplayGPSScoreView(TemplateView):
             if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
                 return None
 
-            score_date = date_time
-            score_time = gps_score_data_list[0]["EN_TIME"]
+            date_time_temp = dt.datetime.strptime(date_time, "%Y%m%d")
+            score_date = date_time_temp.strftime("%Y-%m-%d")
+            score_time_temp = gps_score_data_list[0]["EN_TIME"]
+            score_time = f"OUT {score_time_temp[0:2]}:{score_time_temp[2:4]}"
 
             context = {
                 'view': self.__class__.__name__,
