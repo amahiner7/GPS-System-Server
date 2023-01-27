@@ -65,6 +65,35 @@ class DisplayGPSScoreView(TemplateView):
 
         return hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par
 
+    def get_context(self, co_div, game_sid, date_time):
+        try:
+            hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
+                self.get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
+
+            if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
+                return None
+
+            score_date = date_time
+            score_time = gps_score_data_list[0]["EN_TIME"]
+
+            context = {
+                'view': self.__class__.__name__,
+                'hole_par_A_data_list': hole_par_A_data_list,
+                'hole_par_B_data_list': hole_par_B_data_list,
+                'gps_score_data_list': gps_score_data_list,
+                'total_Par_A': str(total_Par_A),
+                'total_Par_B': str(total_Par_B),
+                'total_Par': str(total_Par),
+                'score_date': score_date,
+                'score_time': score_time,
+            }
+
+            return context
+
+        except Exception as ex:
+            print(ex)
+            return None
+
     def get(self, request, *args, **kwargs):
         if kwargs["param"] == "display":
             try:
@@ -79,22 +108,10 @@ class DisplayGPSScoreView(TemplateView):
                 else:
                     date_time = dt.datetime.now().strftime("%Y%m%d")
 
-                hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
-                    self.get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
-
-                if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
+                context = self.get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                if context is None:
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
-
-                context = {
-                    'view': self.__class__.__name__,
-                    'hole_par_A_data_list': hole_par_A_data_list,
-                    'hole_par_B_data_list': hole_par_B_data_list,
-                    'gps_score_data_list': gps_score_data_list,
-                    'total_Par_A': str(total_Par_A),
-                    'total_Par_B': str(total_Par_B),
-                    'total_Par': str(total_Par)
-                }
 
                 return render(
                     request, 'gps_score_app/display.html', context)
@@ -117,22 +134,10 @@ class DisplayGPSScoreView(TemplateView):
                 else:
                     date_time = dt.datetime.now().strftime("%Y%m%d")
 
-                hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
-                    self.get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
-
-                if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
+                context = self.get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                if context is None:
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
-
-                context = {
-                    'view': self.__class__.__name__,
-                    'hole_par_A_data_list': hole_par_A_data_list,
-                    'hole_par_B_data_list': hole_par_B_data_list,
-                    'gps_score_data_list': gps_score_data_list,
-                    'total_Par_A': str(total_Par_A),
-                    'total_Par_B': str(total_Par_B),
-                    'total_Par': str(total_Par)
-                }
 
                 template_path = "gps_score_app/display.html"
                 template = get_template(template_path)

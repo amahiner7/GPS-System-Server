@@ -16,14 +16,14 @@
 </style>
 {% endblock css %}
 
-{% block content %}
-
 {% load static %}
+
+{% block content %}
 
 <table class="table table-striped" style="border: 0px">
     <thead>
         <tr>
-            <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">DATE: 2023-01-16</th>
+            <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">DATE: {{ score_date }}</th>
             <!--<th style="border: 0px" rowspan="2">
                 <img src="{% static 'image/map_gen_top_title.png' %}" align="right">
             </th>-->
@@ -32,7 +32,7 @@
             </th>
         </tr>
         <tr style="border: 0px">
-            <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">TIME: OUT 07:33</th>
+            <th style="color:black;text-align:left;border: 2px solid black;border-left: none;border-right: none;border-top: none;">TIME: {{ score_time }} </th>
         </tr>
     </thead>
 </table>
