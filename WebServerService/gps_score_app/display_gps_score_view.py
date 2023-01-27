@@ -1,6 +1,8 @@
 import os
+import sys
 import imgkit
 import datetime as dt
+import socket
 
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -11,13 +13,18 @@ from django.template.loader import get_template
 from django.conf import settings
 from .singleton_object import SingletonObject
 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+
+from WebServerService.settings import MEDIA_ROOT
+
 
 @method_decorator(csrf_exempt, name="dispatch")
 class DisplayGPSScoreView(TemplateView):
     template_name = "gps_score_app/display.html"
     qeuryset = None
 
-    def get_gps_score_information(self, co_div, game_sid, date_time):
+    def __get_gps_score_information(self, co_div, game_sid, date_time):
         hole_par_A_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="OUT")
         hole_par_B_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="IN")
         gps_score_data_list = SingletonObject.database_service.get_gps_score_data(
@@ -28,7 +35,6 @@ class DisplayGPSScoreView(TemplateView):
         if hole_par_A_data_list is None or len(hole_par_A_data_list) == 0 or \
                 hole_par_B_data_list is None or len(hole_par_B_data_list) == 0 or \
                 gps_score_data_list is None or len(gps_score_data_list) == 0:
-
             return None, None, None, None, None, None
 
         total_Par_A = 0
@@ -65,10 +71,10 @@ class DisplayGPSScoreView(TemplateView):
 
         return hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par
 
-    def get_context(self, co_div, game_sid, date_time):
+    def __get_context(self, co_div, game_sid, date_time):
         try:
             hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
-                self.get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                self.__get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
 
             if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
                 return None
@@ -96,6 +102,10 @@ class DisplayGPSScoreView(TemplateView):
             print(ex)
             return None
 
+    def __get_json_string(self, file_url):
+        result = {"rCode": "200", "rMessage": "Success", "file_url": file_url}
+        return result
+
     def get(self, request, *args, **kwargs):
         if kwargs["param"] == "display":
             try:
@@ -110,7 +120,7 @@ class DisplayGPSScoreView(TemplateView):
                 else:
                     date_time = dt.datetime.now().strftime("%Y%m%d")
 
-                context = self.get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
                 if context is None:
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
@@ -136,7 +146,7 @@ class DisplayGPSScoreView(TemplateView):
                 else:
                     date_time = dt.datetime.now().strftime("%Y%m%d")
 
-                context = self.get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
                 if context is None:
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
@@ -152,16 +162,32 @@ class DisplayGPSScoreView(TemplateView):
 
                 image = imgkit.from_string(html, False, config=config)
 
+                file_path = dt.datetime.now().strftime("%H%M%S%f") + ".jpg"
+                save_dir_path = os.path.join(MEDIA_ROOT, co_div, game_sid, date_time)
+                file_full_path = os.path.join(save_dir_path, file_path)
+
+                if not os.path.exists(save_dir_path):
+                    os.makedirs(save_dir_path)
+
+                sub_file_save_web_url = f"{co_div}/{game_sid}/{date_time}"
+                file_url = f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{sub_file_save_web_url}/{file_path}"
+
+                with open(file_full_path, "wb") as file:
+                    file.write(image)
+
+                json_string = self.__get_json_string(file_url=file_url)
+
+                return JsonResponse(json_string, safe=False)
+
                 # # Generate download
                 # response = HttpResponse(image, content_type='image/jpeg')
                 #
                 # response['Content-Disposition'] = 'attachment; filename=gps-score-image.jpg'
 
-                file_path = "gps-score-image.jpg"
-                response = HttpResponse(image, content_type="image/jpeg")
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                # response = HttpResponse(image, content_type="image/jpeg")
+                # response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
 
-                return response
+                # return response
 
             except Exception as ex:
                 print(ex)
