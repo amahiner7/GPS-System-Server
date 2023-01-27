@@ -13,6 +13,7 @@
       <sourceFolder url="file://$MODULE_DIR$/WebServerService/fileupload/templates" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WebServerService/gps_score" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WebServerService/gps_score_app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/WebServerService/file_management_app" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
