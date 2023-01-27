@@ -169,7 +169,6 @@ class DisplayGPSScoreView(TemplateView):
                 if not os.path.exists(save_dir_path):
                     os.makedirs(save_dir_path)
 
-                sub_file_save_web_url = f"{co_div}/{game_sid}/{date_time}"
                 file_url = \
                     f"http://{socket.gethostbyname(socket.gethostname())}:9018/api/v1/file/gps-score-image?" \
                     f"co_div={co_div}&game_sid={game_sid}&datetime={date_time}&filename={file_path}"
