@@ -42,7 +42,6 @@
         <tr>
             <th bgcolor="#808080">Course</th>
             <th colspan="10" bgcolor="#0070C0">OUT</th>
-            <th style="border: 0px;min-width:0px" width="1px"></th>
             <th colspan="10" bgcolor="#538235">IN</th>
             <th rowspan="2" bgcolor="#FEBF00" style="vertical-align:middle">Total</th>
         </tr>
@@ -60,7 +59,6 @@
                 <th bgcolor="#0070C0">{{data.HOLE_NO_09}}</th>
             {% endfor %}
             <th bgcolor="#0070C0">SUB</th>
-            <th style="border: 0px"></th>
             {% for data in hole_par_B_data_list %}
                 <th bgcolor="#538235">{{data.HOLE_NO_01}}</th>
                 <th bgcolor="#538235">{{data.HOLE_NO_02}}</th>
@@ -87,7 +85,6 @@
                 <th bgcolor="#0070C0">{{data.PAR_CNT_09}}</th>
             {% endfor %}
             <th bgcolor="#0070C0">{{total_Par_A}}</th>
-            <th style="border: 0px"></th>
             {% for data in hole_par_B_data_list %}
                 <th bgcolor="#538235">{{data.PAR_CNT_01}}</th>
                 <th bgcolor="#538235">{{data.PAR_CNT_02}}</th>
@@ -117,7 +114,6 @@
                 <td>{{data.CALC_SCORE_A8}}</td>
                 <td>{{data.CALC_SCORE_A9}}</td>
                 <td>{{data.SCORE_TOTAL_A}}</td>
-                <td style="border: 0px"></td>
                 <td>{{data.CALC_SCORE_B1}}</td>
                 <td>{{data.CALC_SCORE_B2}}</td>
                 <td>{{data.CALC_SCORE_B3}}</td>

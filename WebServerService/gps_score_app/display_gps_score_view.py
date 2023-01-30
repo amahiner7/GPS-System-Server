@@ -3,7 +3,10 @@ import sys
 import imgkit
 import datetime as dt
 import socket
+import json
+import urllib.request
 
+import requests
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -206,14 +209,23 @@ class DisplayGPSScoreView(TemplateView):
                     scoreUrl=file_url,
                     sendLogSno="0001",
                     rvtnDt=date_time,
-                    name="테스터",
+                    name="Tester",
                     bgnCourseId="0001",
                     rvtnHoleCo="0001",
                     mobileNo=mobile_no,
                     gmberNo=game_sid,
                     rvtnSno="0001")
 
-                return JsonResponse(json_string, safe=False)
+                json_dump = json.dumps(json_string)
+                request_url = "https://bcgcweb01.bearcreek.co.kr/_nice_caddy_api/score_member_sms_send.aspx"
+                response = requests.get(url=request_url, params={"data": json_dump})
+
+                if response.status_code == 200:
+                    result = {'rCode': response.status_code, 'rMessage': "Success", "Data": json_string}
+                else:
+                    result = {'rCode': response.status_code, 'rMessage': response.text}
+
+                return JsonResponse(result, safe=False)
 
             except Exception as ex:
                 print(ex)
