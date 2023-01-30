@@ -143,4 +143,6 @@ MEDIA_ROOT = os.path.join("C:/apache-tomcat-9.0.70/webapps/ROOT", "image")
 
 UPLOAD_FILE_PATH = ""
 
+SEND_SMS_URL = "https://bcgcweb01.bearcreek.co.kr/_nice_caddy_api/score_member_sms_send.aspx"
+
 APPEND_SLASH = False

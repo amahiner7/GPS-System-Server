@@ -19,7 +19,7 @@ from .singleton_object import SingletonObject
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
-from WebServerService.settings import MEDIA_ROOT
+from WebServerService.settings import MEDIA_ROOT, SEND_SMS_URL
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -193,10 +193,6 @@ class DisplayGPSScoreView(TemplateView):
                 if not os.path.exists(save_dir_path):
                     os.makedirs(save_dir_path)
 
-                # file_url = \
-                #     f"http://{socket.gethostbyname(socket.gethostname())}:9018/api/v1/file/gps-score-image?" \
-                #     f"co_div={co_div}&game_sid={game_sid}&datetime={date_time}&filename={file_path}"
-
                 file_url = \
                     f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/" \
                     f"{co_div}/{game_sid}/{date_time}/{file_path}"
@@ -217,7 +213,7 @@ class DisplayGPSScoreView(TemplateView):
                     rvtnSno="0001")
 
                 json_dump = json.dumps(json_string)
-                request_url = "https://bcgcweb01.bearcreek.co.kr/_nice_caddy_api/score_member_sms_send.aspx"
+                request_url = SEND_SMS_URL
                 response = requests.get(url=request_url, params={"data": json_dump})
 
                 if response.status_code == 200:
