@@ -98,8 +98,13 @@ class DatabaseService:
         else:
             return None
 
-    def get_hole_par_data(self, co_div, cour_name):
-        sql = "SELECT " \
+    def get_hole_par_data(self, co_div, cour_name=None):
+        cour_name_query = ""
+
+        if cour_name is not None:
+            cour_name_query = f"AND COUR_NAME = '{cour_name}' "
+
+        sql = "SELECT COUR_NAME, " \
               "HOLE_NO_01, HOLE_NO_02, HOLE_NO_03, HOLE_NO_04, HOLE_NO_05, " \
               "HOLE_NO_06, HOLE_NO_07, HOLE_NO_08, HOLE_NO_09, " \
               "PAR_CNT_01, PAR_CNT_02, PAR_CNT_03, PAR_CNT_04, PAR_CNT_05, " \
@@ -107,7 +112,7 @@ class DatabaseService:
               "FROM GA0200 " \
               "WHERE 1 = 1 " \
               f"AND CO_DIV = '{co_div}' " \
-              f"AND COUR_NAME = '{cour_name}' " \
+              f"{cour_name_query}" \
               "ORDER BY COUR_CD; "
         try:
             self.db_cursor.execute(sql)
