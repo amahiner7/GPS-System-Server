@@ -106,7 +106,7 @@ class DatabaseService:
               "PAR_CNT_06, PAR_CNT_07, PAR_CNT_08, PAR_CNT_09 " \
               "FROM GA0200 " \
               "WHERE 1 = 1 " \
-              f"AND CO_DIV = '{co_div}' "\
+              f"AND CO_DIV = '{co_div}' " \
               f"AND COUR_NAME = '{cour_name}' " \
               "ORDER BY COUR_CD; "
         try:
@@ -123,11 +123,15 @@ class DatabaseService:
         else:
             return None
 
-    def get_gps_score_data(self, co_div, game_sid, date_time=None):
+    def get_gps_score_data(self, co_div, game_sid, date_time=None, chkin_no=None):
         date_time_query = ""
+        chkin_no_query = ""
 
         if date_time is not None:
             date_time_query = f"AND P.GAME_DT = '{date_time}' "
+
+        if chkin_no is not None:
+            chkin_no_query = f"AND P.chkin_no = '{chkin_no}' "
 
         sql = "SELECT G.COUR_CD_P, G.GAME_SID, G.CHANGE_CD_P, G.CHANGE_CD_N, G.CHANGE_CD_A, P.CHKIN_NO, P.CUST_NM, " \
               "CASE WHEN S.COURSE_A IS NULL THEN G.CHANGE_CD_P ELSE S.COURSE_A END COURSE_A, " \
@@ -169,6 +173,7 @@ class DatabaseService:
               "AND P.CHECKINYN = 'Y' " \
               f"AND p.game_sid ='{game_sid}' " \
               "AND G.DEL_YN = 'N' " \
+              f"{chkin_no_query}" \
               "ORDER by S.EN_SEQ ASC; "
         try:
             self.db_cursor.execute(sql)
@@ -183,7 +188,3 @@ class DatabaseService:
             return results
         else:
             return None
-
-    def get_total_gps_score_information(self):
-
-        pass

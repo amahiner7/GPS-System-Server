@@ -27,13 +27,14 @@ class DisplayGPSScoreView(TemplateView):
     template_name = "gps_score_app/display.html"
     qeuryset = None
 
-    def __get_gps_score_information(self, co_div, game_sid, date_time):
+    def __get_gps_score_information(self, co_div, game_sid, date_time, chkin_no):
         hole_par_A_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="OUT")
         hole_par_B_data_list = SingletonObject.database_service.get_hole_par_data(co_div=co_div, cour_name="IN")
         gps_score_data_list = SingletonObject.database_service.get_gps_score_data(
             co_div=co_div,
             game_sid=game_sid,
-            date_time=date_time)
+            date_time=date_time,
+            chkin_no=chkin_no)
 
         if hole_par_A_data_list is None or len(hole_par_A_data_list) == 0 or \
                 hole_par_B_data_list is None or len(hole_par_B_data_list) == 0 or \
@@ -74,10 +75,11 @@ class DisplayGPSScoreView(TemplateView):
 
         return hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par
 
-    def __get_context(self, co_div, game_sid, date_time):
+    def __get_context(self, co_div, game_sid, date_time, chkin_no):
         try:
             hole_par_A_data_list, hole_par_B_data_list, gps_score_data_list, total_Par_A, total_Par_B, total_Par = \
-                self.__get_gps_score_information(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                self.__get_gps_score_information(
+                    co_div=co_div, game_sid=game_sid, date_time=date_time, chkin_no=chkin_no)
 
             if hole_par_A_data_list is None or hole_par_B_data_list is None or gps_score_data_list is None:
                 return None
@@ -86,6 +88,7 @@ class DisplayGPSScoreView(TemplateView):
             score_date = date_time_temp.strftime("%Y-%m-%d")
             score_time_temp = gps_score_data_list[0]["EN_TIME"]
             score_time = f"OUT {score_time_temp[0:2]}:{score_time_temp[2:4]}"
+            customer_name = gps_score_data_list[0]["CUST_NM"]
 
             context = {
                 'view': self.__class__.__name__,
@@ -97,6 +100,7 @@ class DisplayGPSScoreView(TemplateView):
                 'total_Par': str(total_Par),
                 'score_date': score_date,
                 'score_time': score_time,
+                'customer_name': customer_name
             }
 
             return context
@@ -141,7 +145,12 @@ class DisplayGPSScoreView(TemplateView):
                 else:
                     date_time = dt.datetime.now().strftime("%Y%m%d")
 
-                context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                if request.GET.get("chkin_no"):
+                    chkin_no = request.GET["chkin_no"]
+                else:
+                    chkin_no = None
+
+                context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time, chkin_no=chkin_no)
                 if context is None:
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
@@ -170,7 +179,12 @@ class DisplayGPSScoreView(TemplateView):
                 if request.GET.get("mobile_no"):
                     mobile_no = request.GET["mobile_no"]
 
-                context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time)
+                if request.GET.get("chkin_no"):
+                    chkin_no = request.GET["chkin_no"]
+                else:
+                    chkin_no = None
+
+                context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time, chkin_no=chkin_no)
                 if context is None:
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
@@ -205,7 +219,7 @@ class DisplayGPSScoreView(TemplateView):
                     scoreUrl=file_url,
                     sendLogSno="0001",
                     rvtnDt=date_time,
-                    name="Tester",
+                    name=context["customer_name"],
                     bgnCourseId="0001",
                     rvtnHoleCo="0001",
                     mobileNo=mobile_no,
