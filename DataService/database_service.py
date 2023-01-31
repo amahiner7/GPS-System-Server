@@ -220,7 +220,7 @@ class DatabaseService:
               "(  " \
               "	0,  " \
               f"{log_text},  " \
-              f"{log_type},  " \
+              f"'{log_type}',  " \
               f"{date_time} " \
               "); "
         try:

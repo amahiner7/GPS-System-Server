@@ -18,6 +18,7 @@ class LotType(Enum):
 
 class SingletonObject:
     database_service = DatabaseService()
+    gps_database_service = DatabaseService()
 
 
 class LogService:
@@ -25,21 +26,21 @@ class LogService:
     def Info(log_text, date_time=None):
         print(log_text)
         if LOG_INSERT_DATABASE:
-            SingletonObject.database_service.insert_server_log(
+            SingletonObject.gps_database_service.insert_server_log(
                 log_text=log_text, log_type=LotType.Info.name, date_time=date_time)
 
     @staticmethod
     def Warn(log_text, date_time=None):
         print(log_text)
         if LOG_INSERT_DATABASE:
-            SingletonObject.database_service.insert_server_log(
+            SingletonObject.gps_database_service.insert_server_log(
                 log_text=log_text, log_type=LotType.Warn.name, date_time=date_time)
 
     @staticmethod
     def Error(log_text, date_time=None):
         print(log_text)
         if LOG_INSERT_DATABASE:
-            SingletonObject.database_service.insert_server_log(
+            SingletonObject.gps_database_service.insert_server_log(
                 log_text=log_text, log_type=LotType.Error.name, date_time=date_time)
 
 
@@ -51,3 +52,12 @@ def connect_to_database_server():
             id=Configs.clubd_default_db_id,
             password=Configs.clubd_default_db_password,
             db_name=Configs.clubd_default_db_name)
+
+    if not SingletonObject.gps_database_service.is_connected():
+        SingletonObject.gps_database_service.connect(
+            db_ip=Configs.gps_default_db_ip,
+            db_port=Configs.gps_default_db_port,
+            id=Configs.gps_default_db_id,
+            password=Configs.gps_default_db_password,
+            db_name=Configs.gps_default_db_name)
+

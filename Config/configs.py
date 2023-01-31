@@ -17,6 +17,12 @@ def load_command_args():
 
 
 class Configs:
+    gps_default_db_ip = "127.0.0.1"
+    gps_default_db_port = 3307
+    gps_default_db_name = "gps_system_server"
+    gps_default_db_id = "greenitgps"
+    gps_default_db_password = "j#u19OI@n0%)f@5"
+
     clubd_default_db_ip = "202.68.227.57"
     clubd_default_db_port = 13306
     clubd_default_db_name = "bear"

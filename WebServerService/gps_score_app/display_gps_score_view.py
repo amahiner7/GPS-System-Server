@@ -168,6 +168,7 @@ class DisplayGPSScoreView(TemplateView):
 
                 context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time, chkin_no=chkin_no)
                 if context is None:
+                    LogService.Error("Empty data.")
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
 
@@ -202,6 +203,7 @@ class DisplayGPSScoreView(TemplateView):
 
                 context = self.__get_context(co_div=co_div, game_sid=game_sid, date_time=date_time, chkin_no=chkin_no)
                 if context is None:
+                    LogService.Error("Empty data.")
                     result = {'rCode': 500, 'rMessage': "Empty data."}
                     return JsonResponse(result, safe=False)
 
@@ -256,6 +258,7 @@ class DisplayGPSScoreView(TemplateView):
                 if response.status_code == 200:
                     result = {'rCode': response.status_code, 'rMessage': "Success", "Data": json_string}
                 else:
+                    LogService.Error(response.text)
                     result = {'rCode': response.status_code, 'rMessage': response.text}
 
                 return JsonResponse(result, safe=False)
