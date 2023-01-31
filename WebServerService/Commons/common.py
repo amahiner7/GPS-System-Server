@@ -1,4 +1,5 @@
 import os
+import requests
 from django.utils import timezone
 from WebServerService.settings import MEDIA_ROOT
 import WebServerService.settings
@@ -18,3 +19,8 @@ def get_upload_file_path(instance, filename):
     result_path = f"{result_path}/{filename}"
 
     return result_path
+
+
+def get_public_ip_address():
+    ip_address = requests.get("https://api.ipify.org").text
+    return ip_address
