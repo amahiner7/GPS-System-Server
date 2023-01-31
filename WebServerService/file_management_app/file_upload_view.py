@@ -13,7 +13,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
 from Commons.common import *
-from WebServerService.settings import MEDIA_ROOT
+from WebServerService.settings import MEDIA_ROOT, SERVER_NAT_IP_ADDRESS
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -45,7 +45,7 @@ class FileUploadView(View):
             sub_upload_web_url = f"{gc_no}/{fname}/{date_time}"
 
             # ip_address = get_public_ip_address()
-            ip_address = "220.121.130.82"
+            ip_address = SERVER_NAT_IP_ADDRESS
 
             toUpFile_url = \
                 f"http://{ip_address}:8080/image/{sub_upload_web_url}/{toUpFile.name}"

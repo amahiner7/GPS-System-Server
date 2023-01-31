@@ -20,7 +20,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
 from Commons.common import *
-from WebServerService.settings import MEDIA_ROOT, SEND_SMS_URL
+from WebServerService.settings import MEDIA_ROOT, SEND_SMS_URL, SERVER_NAT_IP_ADDRESS
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -224,7 +224,7 @@ class DisplayGPSScoreView(TemplateView):
                     os.makedirs(save_dir_path)
 
                 # ip_address = get_public_ip_address()
-                ip_address = "220.121.130.82"
+                ip_address = SERVER_NAT_IP_ADDRESS
 
                 file_url = \
                     f"http://{ip_address}:8080/image/" \
