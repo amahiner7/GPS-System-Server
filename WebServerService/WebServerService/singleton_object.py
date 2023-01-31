@@ -7,7 +7,8 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(
 
 from Config.configs import Configs
 from DataService.database_service import DatabaseService
-from settings import LOG_INSERT_DATABASE
+from WebServerService.settings import LOG_INSERT_DATABASE
+# from settings import LOG_INSERT_DATABASE
 
 
 class LotType(Enum):

@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import db_setting
 import os
 import pymysql
+from WebServerService import db_setting
 
 pymysql.install_as_MySQLdb()
 
