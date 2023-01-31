@@ -19,8 +19,9 @@ from .singleton_object import SingletonObject
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
+from Commons.common import *
 from WebServerService.settings import MEDIA_ROOT, SEND_SMS_URL
-from Commons.common import get_public_ip_address
+
 
 @method_decorator(csrf_exempt, name="dispatch")
 class DisplayGPSScoreView(TemplateView):
@@ -222,7 +223,9 @@ class DisplayGPSScoreView(TemplateView):
                 if not os.path.exists(save_dir_path):
                     os.makedirs(save_dir_path)
 
-                ip_address = get_public_ip_address()
+                # ip_address = get_public_ip_address()
+                ip_address = "220.121.130.82"
+
                 file_url = \
                     f"http://{ip_address}:8080/image/" \
                     f"{co_div}/{game_sid}/{date_time}/{file_path}"

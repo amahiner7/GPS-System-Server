@@ -43,8 +43,12 @@ class FileUploadView(View):
             date_time = timezone.now().strftime("%Y%m%d")
 
             sub_upload_web_url = f"{gc_no}/{fname}/{date_time}"
+
+            # ip_address = get_public_ip_address()
+            ip_address = "220.121.130.82"
+
             toUpFile_url = \
-                f"http://{socket.gethostbyname(socket.gethostname())}:8080/image/{sub_upload_web_url}/{toUpFile.name}"
+                f"http://{ip_address}:8080/image/{sub_upload_web_url}/{toUpFile.name}"
 
             file_information = FileInformation(
                 title=title,
