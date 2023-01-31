@@ -226,6 +226,12 @@ class DatabaseService:
 
     def insert_server_log(self, log_text, log_type, date_time=None):
         self.__check_db_conn()  # Check database connection
+        log_text_query = None
+
+        if log_text.startswith("'"):
+            log_text_query = f"{log_text}, "
+        else:
+            log_text_query = f"'{log_text}', "
 
         if date_time is None:
             date_time = "NOW()"
@@ -234,7 +240,7 @@ class DatabaseService:
               "VALUES " \
               "(  " \
               "	0,  " \
-              f"{log_text},  " \
+              f"{log_text_query}" \
               f"'{log_type}',  " \
               f"{date_time} " \
               "); "
