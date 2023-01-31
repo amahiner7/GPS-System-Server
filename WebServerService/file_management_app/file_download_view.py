@@ -10,6 +10,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(
 
 from Commons.common import *
 from WebServerService.settings import MEDIA_ROOT, GPS_SCORE_APP_STATIC_ROOT
+from WebServerService.singleton_object import LogService
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -33,6 +34,7 @@ class FileDownloadView(View):
                 return JsonResponse(result, safe=False)
 
         except Exception as ex:
+            LogService.Error(str(ex))
             result = {'rCode': 500, 'rMessage': str(ex)}
             return JsonResponse(result, safe=False)
 
@@ -52,6 +54,7 @@ class FileDownloadView(View):
                 return JsonResponse(result, safe=False)
 
         except Exception as ex:
+            LogService.Error(str(ex))
             result = {'rCode': 500, 'rMessage': str(ex)}
             return JsonResponse(result, safe=False)
 
@@ -74,6 +77,7 @@ class FileDownloadView(View):
                 return JsonResponse(result, safe=False)
 
         except Exception as ex:
+            LogService.Error(str(ex))
             result = {'rCode': 500, 'rMessage': str(ex)}
             return JsonResponse(result, safe=False)
 

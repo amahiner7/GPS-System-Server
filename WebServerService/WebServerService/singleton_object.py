@@ -7,6 +7,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(
 
 from Config.configs import Configs
 from DataService.database_service import DatabaseService
+from settings import LOG_INSERT_DATABASE
 
 
 class LotType(Enum):
@@ -20,17 +21,26 @@ class SingletonObject:
 
 
 class LogService:
-    def Info(self, log_text, date_time=None):
-        SingletonObject.database_service.insert_server_log(
-            log_text=log_text, log_type=LotType.Info.name, date_time=date_time)
+    @staticmethod
+    def Info(log_text, date_time=None):
+        print(log_text)
+        if LOG_INSERT_DATABASE:
+            SingletonObject.database_service.insert_server_log(
+                log_text=log_text, log_type=LotType.Info.name, date_time=date_time)
 
-    def Warn(self, log_text, date_time=None):
-        SingletonObject.database_service.insert_server_log(
-            log_text=log_text, log_type=LotType.Warn.name, date_time=date_time)
+    @staticmethod
+    def Warn(log_text, date_time=None):
+        print(log_text)
+        if LOG_INSERT_DATABASE:
+            SingletonObject.database_service.insert_server_log(
+                log_text=log_text, log_type=LotType.Warn.name, date_time=date_time)
 
-    def Error(self, log_text, date_time=None):
-        SingletonObject.database_service.insert_server_log(
-            log_text=log_text, log_type=LotType.Error.name, date_time=date_time)
+    @staticmethod
+    def Error(log_text, date_time=None):
+        print(log_text)
+        if LOG_INSERT_DATABASE:
+            SingletonObject.database_service.insert_server_log(
+                log_text=log_text, log_type=LotType.Error.name, date_time=date_time)
 
 
 def connect_to_database_server():

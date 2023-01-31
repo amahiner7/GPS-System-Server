@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from datetime import timedelta
-from . import db_setting
+import db_setting
 import os
 import pymysql
 
@@ -149,3 +148,5 @@ APPEND_SLASH = False
 
 # SERVER_NAT_IP_ADDRESS = "220.121.130.82"
 SERVER_NAT_IP_ADDRESS = "220.121.130.83"
+
+LOG_INSERT_DATABASE = True

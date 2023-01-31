@@ -20,7 +20,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(
 
 from Commons.common import *
 from WebServerService.settings import MEDIA_ROOT, SEND_SMS_URL, SERVER_NAT_IP_ADDRESS
-from WebServerService.singleton_object import SingletonObject
+from WebServerService.singleton_object import SingletonObject, LogService
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -118,7 +118,7 @@ class DisplayGPSScoreView(TemplateView):
             return context
 
         except Exception as ex:
-            print(ex)
+            LogService.Error(str(ex))
             return None
 
     def __get_json_string(self, plcbizCd, scoreUrl, sendLogSno, rvtnDt, name,
@@ -175,7 +175,7 @@ class DisplayGPSScoreView(TemplateView):
                     request, 'gps_score_app/display.html', context)
 
             except Exception as ex:
-                print(ex)
+                LogService.Error(str(ex))
                 result = {'rCode': 500, 'rMessage': str(ex)}
                 return JsonResponse(result, safe=False)
 
@@ -261,6 +261,6 @@ class DisplayGPSScoreView(TemplateView):
                 return JsonResponse(result, safe=False)
 
             except Exception as ex:
-                print(ex)
+                LogService.Error(str(ex))
                 result = {'rCode': 500, 'rMessage': str(ex)}
                 return JsonResponse(result, safe=False)

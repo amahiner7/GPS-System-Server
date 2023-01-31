@@ -14,7 +14,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(
 
 from Commons.common import *
 from WebServerService.settings import MEDIA_ROOT, SERVER_NAT_IP_ADDRESS
-
+from WebServerService.singleton_object import LogService
 
 @method_decorator(csrf_exempt, name="dispatch")
 class FileUploadView(View):
@@ -27,6 +27,7 @@ class FileUploadView(View):
                 }
             return render(request, 'file_management_app/fileupload.html', context)
         except Exception as ex:
+            LogService.Error(str(ex))
             result = {'rCode': 500, 'rMessage': str(ex)}
             return JsonResponse(result, safe=False)
 
@@ -63,5 +64,6 @@ class FileUploadView(View):
             result = {"rCode": "200", "rMessage": "Success", "file_url": toUpFile_url}
             return JsonResponse(result, safe=False)
         except Exception as ex:
+            LogService.Error(str(ex))
             result = {'rCode': 500, 'rMessage': str(ex)}
             return JsonResponse(result, safe=False)
