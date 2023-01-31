@@ -14,13 +14,13 @@ from django.views.generic import View, TemplateView
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import get_template
 from django.conf import settings
-from .singleton_object import SingletonObject
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 
 from Commons.common import *
 from WebServerService.settings import MEDIA_ROOT, SEND_SMS_URL, SERVER_NAT_IP_ADDRESS
+from WebServerService.singleton_object import SingletonObject
 
 
 @method_decorator(csrf_exempt, name="dispatch")
