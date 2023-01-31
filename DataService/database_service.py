@@ -193,3 +193,16 @@ class DatabaseService:
             return results
         else:
             return None
+
+    def update_gps_score_sms_send(self, co_div, game_dt, game_sid, chkin_no, sms_send):
+        sql = f"UPDATE GD0300 SET SMS_SEND = '{sms_send}' "\
+              "WHERE 1=1 " \
+              f"AND CO_DIV = '{co_div}' "\
+              f"AND GAME_DT = '{game_dt}' "\
+              f"AND GAME_SID = '{game_sid}' "\
+              f"AND CHKIN_NO = '{chkin_no}'; "
+        try:
+            self.db_cursor.execute(sql)
+            self.db_conn.commit()
+        except Exception as ex:
+            print("DatabaseService.update_gps_score_sms_send():", ex)

@@ -142,6 +142,10 @@ class DisplayGPSScoreView(TemplateView):
 
         return result
 
+    def __update_gps_score_sms_send(self, co_div, game_dt, game_sid, chkin_no, sms_send):
+        SingletonObject.database_service.update_gps_score_sms_send(
+            co_div=co_div, game_dt=game_dt, game_sid=game_sid, chkin_no=chkin_no, sms_send=sms_send)
+
     def get(self, request, *args, **kwargs):
         if kwargs["param"] == "display":
             try:
@@ -240,6 +244,10 @@ class DisplayGPSScoreView(TemplateView):
                 json_dump = json.dumps(json_string)
                 request_url = SEND_SMS_URL
                 response = requests.get(url=request_url, params={"data": json_dump})
+
+                if chkin_no is not None:
+                    self.__update_gps_score_sms_send(
+                        co_div=co_div, game_dt=date_time, game_sid=game_sid, chkin_no=chkin_no, sms_send="Y")
 
                 if response.status_code == 200:
                     result = {'rCode': response.status_code, 'rMessage': "Success", "Data": json_string}
