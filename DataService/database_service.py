@@ -195,6 +195,8 @@ class DatabaseService:
             return None
 
     def update_gps_score_sms_send(self, co_div, game_dt, game_sid, chkin_no, sms_send):
+        self.__check_db_conn()  # Check database connection
+
         sql = f"UPDATE GD0300 SET SMS_SEND = '{sms_send}' "\
               "WHERE 1=1 " \
               f"AND CO_DIV = '{co_div}' "\
@@ -206,3 +208,23 @@ class DatabaseService:
             self.db_conn.commit()
         except Exception as ex:
             print("DatabaseService.update_gps_score_sms_send():", ex)
+
+    def insert_server_log(self, log_text, log_type, date_time=None):
+        self.__check_db_conn()  # Check database connection
+
+        if date_time is None:
+            date_time = "NOW()"
+
+        sql = "INSERT INTO server_log " \
+              "VALUES " \
+              "(  " \
+              "	0,  " \
+              f"{log_text},  " \
+              f"{log_type},  " \
+              f"{date_time} " \
+              "); "
+        try:
+            self.db_cursor.execute(sql)
+            self.db_conn.commit()
+        except Exception as ex:
+            print("DatabaseService.insert_server_log():", ex)

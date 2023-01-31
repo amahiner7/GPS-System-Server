@@ -147,5 +147,5 @@ SEND_SMS_URL = "https://bcgcweb01.bearcreek.co.kr/_nice_caddy_api/score_member_s
 
 APPEND_SLASH = False
 
-SERVER_NAT_IP_ADDRESS = "220.121.130.82"
-# SERVER_NAT_IP_ADDRESS = "220.121.130.83"
+# SERVER_NAT_IP_ADDRESS = "220.121.130.82"
+SERVER_NAT_IP_ADDRESS = "220.121.130.83"
